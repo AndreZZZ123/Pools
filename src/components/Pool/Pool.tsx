@@ -4,6 +4,7 @@ import {
   checkAllowance,
   getAllowance,
   getCurrentTotalStake,
+  getRewardsAvailable,
   getStakedBalance,
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
@@ -25,6 +26,7 @@ function Pool({ pool }: Props) {
       checkAllowance(account, pool, library).then(setHasAllowance);
       getStakedBalance(account, pool, library).then(setStaked);
       getCurrentTotalStake(pool, library).then(setTotalStake);
+      getRewardsAvailable(account, pool, library).then(setEarned);
     }
   }, [active, library, account, pool]);
 
@@ -46,7 +48,11 @@ function Pool({ pool }: Props) {
             % of total
           </h3>
           <h3 className="pool-extra-title">
-            Rewards ⭐️ {earned} {pool.reward.name}
+            Rewards{" "}
+            <span role="img" aria-label="star">
+              ⭐️
+            </span>{" "}
+            {earned} {pool.reward.name}
           </h3>
         </div>
         {!hasAllowance && (

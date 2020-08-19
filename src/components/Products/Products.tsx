@@ -1,6 +1,5 @@
 import React from "react";
 import Pools from "../Pools/Pools";
-import Wallet from "../Wallet/Wallet";
 import "./Products.scss";
 
 function Products() {

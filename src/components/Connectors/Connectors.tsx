@@ -39,7 +39,7 @@ const connectorsByName: { [connectorName in ConnectorNames]: any } = {
 };
 
 function Connectors() {
-  const { connector, activate, active, error } = useWeb3React();
+  const { connector, activate, active } = useWeb3React();
 
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = React.useState<any>();
@@ -70,10 +70,10 @@ function Connectors() {
         </a>
         {Object.keys(connectorsByName).map((name) => {
           const currentConnector = connectorsByName[name];
-          const activating = currentConnector === activatingConnector;
-          const connected = currentConnector === connector;
-          const disabled =
-            !triedEager || !!activatingConnector || connected || !!error;
+          // const activating = currentConnector === activatingConnector;
+          // const connected = currentConnector === connector;
+          // const disabled =
+          //   !triedEager || !!activatingConnector || connected || !!error;
 
           return (
             <Button

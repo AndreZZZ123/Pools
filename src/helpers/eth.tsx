@@ -49,7 +49,7 @@ export async function getAllowance(address, pool: Pool, signer) {
 export async function getRewardsAvailable(address, pool: Pool, provider) {
   const contract = new ethers.Contract(pool.address, pool.abi, provider);
   const balance = await contract.earned(address);
-  return formatEther(balance);
+  return parseInt(formatEther(balance));
 }
 
 // _getERC20Balance = async (web3, asset, account, callback) => {

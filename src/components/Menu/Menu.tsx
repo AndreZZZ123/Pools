@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useWeb3React } from "@web3-react/core";
 import Wallet from "../Wallet/Wallet";
 import "./Menu.scss";
@@ -16,7 +16,7 @@ function Menu({
   setCurrentTheme,
   currentTheme,
 }: Props) {
-  const { connector, account, active } = useWeb3React();
+  const { active } = useWeb3React();
   return (
     <div className="menu">
       {active && showWallet && (
