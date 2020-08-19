@@ -1,0 +1,20 @@
+@import "../../main.scss";
+
+.infobox {
+  margin: 4px;
+  padding: 7px;
+}
+
+.infobox-content {
+  @include themify($themes) {
+    color: themed("textColor");
+    background-color: themed("InfoboxContentBackground");
+  }
+}
+
+.infobox-title {
+  @include themify($themes) {
+    color: themed("textColor");
+    background-color: themed("infoBoxTitleBackground");
+  }
+}

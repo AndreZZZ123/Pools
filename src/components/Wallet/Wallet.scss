@@ -1,0 +1,21 @@
+@import "../../main.scss";
+
+.wallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: $default-spacing;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.deactivate-button {
+  max-width: 9.5em;
+}
+
+.theme-toggler-menu {
+  position: relative !important;
+  margin-bottom: 14px;
+}

@@ -1,0 +1,24 @@
+@import "../../main.scss";
+
+.pools {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pools-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: $default-spacing;
+}
+
+.pool-icon {
+}
+
+@media screen and (max-width: 1000px) {
+  .pools-container {
+    flex-direction: column;
+  }
+}

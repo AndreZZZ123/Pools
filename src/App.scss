@@ -1,0 +1,162 @@
+@import "./main.scss";
+
+body {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#app-root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 100vh;
+
+  .title {
+    font-family: sans-serif;
+    font-weight: lighter;
+  }
+
+  @include themify($themes) {
+    color: themed("textColor");
+    background-color: themed("backgroundColor");
+  }
+}
+
+.content-with-sidebar {
+  display: flex;
+  flex-direction: row;
+  transition: flex 5s ease;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(226, 68, 213);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(226, 226, 226);
+  border: 1px solid black;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #3b3b3b;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #292a2b;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.zzz-logo {
+  width: 225px;
+  margin-top: $default-spacing;
+}
+
+.theme-toggler {
+  position: absolute;
+  top: 10px;
+  margin-top: 5px;
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.disabled:hover {
+  cursor: default;
+  opacity: 0.4 !important;
+}
+
+.icon {
+  margin: 4px;
+}
+
+.menu-toggle {
+  width: 45px;
+  position: relative;
+  fill: white;
+  stroke: white;
+  color: white;
+  top: 15px;
+  margin-bottom: $default-spacing;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.toggled {
+  transform: rotate(90deg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.99;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 700px) {
+  .content-with-sidebar {
+    flex-direction: column-reverse;
+  }
+}

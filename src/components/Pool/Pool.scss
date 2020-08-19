@@ -1,0 +1,44 @@
+@import "../../main.scss";
+
+.pool {
+  padding: 14px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 7px;
+  min-width: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid rgb(184, 184, 184);
+  border-top-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.pool-extra {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pool-icon {
+  font-size: 75px;
+}
+
+.pool-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: $default-font-size;
+
+  .button {
+    display: flex;
+    justify-content: center;
+    max-width: 9.5em;
+    margin-top: $default-spacing;
+  }
+}
+
+.pool-title {
+  font-size: $huge-font-size;
+}

@@ -1,25 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useWeb3React } from "@web3-react/core";
+import React, { useState } from "react";
+import Greeting from "./components/Greeting/Greeting";
+import Connectors from "./components/Connectors/Connectors";
+import Products from "./components/Products/Products";
+import Menu from "./components/Menu/Menu";
+import Footer from "./components/Footer/Footer";
+import MenuIcon from "./components/SVG/MenuIcon";
+import "./App.scss";
 
 function App() {
+  const { account, active } = useWeb3React();
+  const [currentTheme, setCurrentTheme] = useState("vapor");
+  const [showWallet, setShowWallet] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main id="app-root">
+      <div className={`theme-${currentTheme}`}>
+        <div className="app-container">
+          {account && (
+            <MenuIcon setShowWallet={setShowWallet} showWallet={showWallet} />
+          )}
+          <div className="content-with-sidebar">
+            <div className="content">
+              {!account ? (
+                <Greeting
+                  currentTheme={currentTheme}
+                  setCurrentTheme={setCurrentTheme}
+                  active={active}
+                />
+              ) : (
+                <Products />
+              )}
+              <Connectors />
+            </div>
+            {account && (
+              <Menu
+                showWallet={showWallet}
+                setShowWallet={setShowWallet}
+                setCurrentTheme={setCurrentTheme}
+                currentTheme={currentTheme}
+              />
+            )}
+          </div>
+          <Footer />
+        </div>
+      </div>
+    </main>
   );
 }
 

@@ -1,0 +1,73 @@
+/*
+ * Theme definitions
+ */
+
+$themes: (
+  vapor: (
+    backgroundColor: #39065a,
+    textColor: rgb(228, 228, 228),
+    buttonTextColor: rgb(236, 236, 236),
+    buttonTextTransform: uppercase,
+    buttonColor: #ea0599,
+    buttonBorder: 2px solid rgb(226, 226, 226),
+    InfoboxContentBackground: #6a0572,
+    infoBoxTitleBackground: rgba(234, 5, 153, 0.4),
+    poolTitleBackgroundColor: #ea0599,
+    poolContentBackgroundColor: #9a0f98,
+  ),
+  other: (
+    backgroundColor: #222831,
+    textColor: #eeeeee,
+    buttonTextColor: #eeeeee,
+    buttonTextTransform: uppercase,
+    buttonTextHoverColor: #ddd,
+    buttonColor: #fd7014,
+    buttonBorder: 2px solid #393e46,
+    InfoboxContentBackground: #393e46,
+    infoBoxTitleBackground: #fd7014,
+    poolTitleBackgroundColor: #eeeeee,
+    poolContentBackgroundColor: #393e46,
+  ),
+);
+
+/*
+ * Theme mixin
+ */
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        @debug $key;
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+/*
+* Other variables
+*/
+
+$small-font-size: 10px;
+$default-font-size: 14px;
+$large-font-size: 18px;
+$huge-font-size: 24px;
+
+$small-spacing: 7px;
+$default-spacing: 14px;
+$large-spacing: 21px;

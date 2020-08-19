@@ -1,0 +1,63 @@
+@import "../../main.scss";
+
+.button {
+  max-width: 20em;
+  min-width: 9.5em;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 7px;
+  display: inline-block;
+  transition: color 0.1s, border-color 0.1s, background-color 0.1s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include themify($themes) {
+    border: themed("buttonBorder");
+    color: themed("buttonTextColor");
+    border-color: themed("buttonTextColor");
+    background-color: themed("buttonColor");
+    text-transform: themed("buttonTextTransform");
+
+    &:hover {
+      color: themed("buttonTextHoverColor");
+      border-color: themed("buttonTextHoverColor");
+      background-color: themed("buttonHoverColor");
+    }
+  }
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button-icon {
+  width: 28px;
+  margin-right: 7px;
+}
+
+.button-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 11px;
+  color: black;
+  padding: 0px;
+  margin: 0px;
+
+  .button-icon {
+    width: 12px;
+  }
+}
+
+.uniswap-button {
+  .button-icon {
+    width: 50px;
+  }
+}
