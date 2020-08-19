@@ -54,7 +54,7 @@ function Pool({ pool }: Props) {
             <span role="img" aria-label="star">
               ⭐️
             </span>{" "}
-            {earned} {pool.reward.name}
+            {earned.toFixed(4)} {pool.reward.name}
           </h3>
         </div>
         {!hasAllowance && (
