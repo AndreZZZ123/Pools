@@ -23,14 +23,15 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
 
   useEffect((): any => {
     if (!!account && !!library) {
-      getERC20balance(account, tokens.ZZZ, library).then((res) => {
+      getERC20balance(account, tokens.ZZZ, library).then(res => {
         if (res) {
           setZZZBalance(res);
         }
       });
 
-      getERC20balance(account, tokens.BPT, library).then((res) => {
+      getERC20balance(account, tokens.BPT, library).then(res => {
         if (res) {
+          console.log(res);
           setBPTBalance(res);
         }
       });
@@ -75,24 +76,16 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
           {balance === null
             ? "Error"
             : balance
-            ? `${formatEther(balance || 0)}`
+            ? `${parseFloat(formatEther(balance)).toFixed(4)}`
             : ""}
         </Infobox.Title>
         <Infobox.Title>
           ZZZ
-          {ZZZBalance === null
-            ? "Error"
-            : balance
-            ? ` ${formatEther(ZZZBalance || 0)}`
-            : ""}
+          {ZZZBalance === null ? "Error" : balance ? ` ${ZZZBalance}` : ""}
         </Infobox.Title>
         <Infobox.Title>
           BPT
-          {BPTBalance === null
-            ? "Error"
-            : balance
-            ? ` ${formatEther(BPTBalance || 0)}`
-            : ""}
+          {BPTBalance === null ? "Error" : balance ? ` ${BPTBalance}` : ""}
         </Infobox.Title>
       </Infobox>
       <div className="theme-toggler theme-toggler-menu">

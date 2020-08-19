@@ -9,19 +9,19 @@ export async function getERC20balance(
 ) {
   const contract = new ethers.Contract(token.address, token.abi, provider);
   const amount = await contract.balanceOf(address);
-  return amount;
+  return parseFloat(formatEther(amount)).toFixed(4);
 }
 
 export async function getCurrentTotalStake(pool: Pool, provider) {
   const contract = new ethers.Contract(pool.address, pool.abi, provider);
   const totalSupply = await contract.totalSupply();
-  return formatEther(totalSupply);
+  return parseFloat(formatEther(totalSupply));
 }
 
 export async function getStakedBalance(address: string, pool: Pool, provider) {
   const contract = new ethers.Contract(pool.address, pool.abi, provider);
   const balance = await contract.balanceOf(address);
-  return formatEther(balance);
+  return parseFloat(formatEther(balance));
 }
 
 export async function checkAllowance(address: string, pool: Pool, provider) {

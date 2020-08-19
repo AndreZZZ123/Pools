@@ -5,7 +5,7 @@ import {
   getAllowance,
   getCurrentTotalStake,
   getRewardsAvailable,
-  getStakedBalance,
+  getStakedBalance
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
 import Button from "../Button/Button";
@@ -19,8 +19,11 @@ function Pool({ pool }: Props) {
   const { active, account, library } = useWeb3React();
   const [hasAllowance, setHasAllowance] = useState(false);
   const [earned, setEarned] = useState(0);
-  const [staked, setStaked] = useState("0");
-  const [totalStake, setTotalStake] = useState("0");
+  const [staked, setStaked] = useState(0);
+  const [totalStake, setTotalStake] = useState(0);
+
+  const userPercentageOfTotal = staked > 0 ? (staked / totalStake) * 100 : 0;
+
   useEffect(() => {
     if (!!account) {
       checkAllowance(account, pool, library).then(setHasAllowance);
@@ -42,10 +45,9 @@ function Pool({ pool }: Props) {
         <div className="pool-info">{pool.info}</div>
         <div className="pool-extra">
           <h3 className="pool-extra-title">
-            Staking {staked} {pool.token.name} of{" "}
-            {Math.trunc(parseInt(totalStake))} {pool.token.name} <br />
-            {parseInt(staked) > 0 ? parseInt(totalStake) / parseInt(staked) : 0}
-            % of total
+            Staking {staked} {pool.token.name} of {Math.trunc(totalStake)}{" "}
+            {pool.token.name} <br />
+            {userPercentageOfTotal.toFixed(4)}% of total
           </h3>
           <h3 className="pool-extra-title">
             Rewards{" "}
