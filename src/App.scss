@@ -110,7 +110,7 @@ input:checked + .slider:before {
 }
 
 .theme-toggler {
-  margin-bottom: $default-spacing;
+  margin: $default-spacing 0;
 }
 
 .disabled {
@@ -160,5 +160,8 @@ a {
 @media screen and (max-width: 700px) {
   .content-with-sidebar {
     flex-direction: column-reverse;
+  }
+  .zzz-logo {
+    width: 200px;
   }
 }
