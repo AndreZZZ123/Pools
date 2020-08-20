@@ -107,7 +107,7 @@ input:checked + .slider:before {
 
 .zzz-logo {
   width: 225px;
-  margin-top: $large-spacing;
+  margin-top: 75px;
 }
 
 .theme-toggler {
@@ -135,7 +135,7 @@ input:checked + .slider:before {
   fill: white;
   stroke: white;
   color: white;
-  top: 15px;
+  top: 25px;
   margin-bottom: $default-spacing;
   transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }

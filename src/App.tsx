@@ -17,7 +17,9 @@ function App() {
     <main id="app-root">
       <div className={`theme-${currentTheme}`}>
         <div className="app-container">
-          <MenuIcon setShowWallet={setShowWallet} showWallet={showWallet} />
+          {active && (
+            <MenuIcon setShowWallet={setShowWallet} showWallet={showWallet} />
+          )}
           {account && showWallet && (
             <Menu
               showWallet={showWallet}

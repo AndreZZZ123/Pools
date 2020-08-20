@@ -31,7 +31,8 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
         </label>
       </div>
       <h1 className="title">ZZZ.finance</h1>
-      <h2>1 ZZZ = ${currentPrice.usd}</h2>
+      <h3>Sleep. Earn.</h3>
+      <h2 className="greeting-current-price">1 ZZZ = ${currentPrice.usd}</h2>
     </div>
   );
 }

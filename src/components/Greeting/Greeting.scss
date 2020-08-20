@@ -1,6 +1,15 @@
+@import "../../main.scss";
+
 .greeting {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.greeting-current-price {
+  margin-bottom: $small-spacing;
 }
