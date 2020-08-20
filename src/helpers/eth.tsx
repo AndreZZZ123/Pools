@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { formatEther, parseEther } from "ethers/lib/utils";
-import { pools, tokens } from "../misc/contracts";
+import { pools, otherPools, tokens } from "../misc/contracts";
 import { Pool, Token } from "../types";
 import coingecko from "./coingecko";
 
@@ -86,6 +86,7 @@ export async function getYieldsFor(
       break;
     }
     case "BPT": {
+      yieldResults = await BPTYield(pools[0], account, provider);
       break;
     }
   }
@@ -144,7 +145,7 @@ async function uniYield(
 
   return {
     weeklyROI,
-    yearlyROI: (parseFloat(weeklyROI) * 52).toString()
+    yearlyROI: (parseFloat(weeklyROI) * 52).toFixed(2)
   };
 }
 
@@ -157,6 +158,70 @@ async function getUniPoolWeeklyRewards(contract) {
   }
   const rewardRate = await contract.rewardRate();
   return Math.round((rewardRate / 1e18) * 604800);
+}
+
+async function BPTYield(pool: Pool, account: string, provider) {
+  const POOL_A = new ethers.Contract(pool.address, pool.abi, provider);
+  const ZZZ_TOKEN = new ethers.Contract(
+    tokens.ZZZ.address,
+    tokens.ZZZ.abi,
+    provider
+  );
+
+  // const stakedYAmount = (await POOL_A.balanceOf(account)) / 1e18;
+  // const earnedYFI = (await POOL_A.earned(account)) / 1e18;
+  const totalStakedYAmount = (await ZZZ_TOKEN.balanceOf(pool.address)) / 1e18;
+
+  // BPT
+  const ZZZ_DAI_BALANCER_POOL = new ethers.Contract(
+    otherPools[0].address,
+    otherPools[0].abi,
+    provider
+  );
+  // const ZZZ_DAI_BPT_TOKEN_CONTRACT = new ethers.Contract(
+  //   otherPools[0].address,
+  //   tokens.ZZZ.abi,
+  //   provider
+  // );
+  // const BPT_STAKING_POOL = new ethers.Contract(
+  //   pool.address,
+  //   require("../misc/abi/mstable_pool_abi.json"),
+  //   provider
+  // );
+  const totalBPTAmount = (await ZZZ_DAI_BALANCER_POOL.totalSupply()) / 1e18;
+  // const totalStakedBPTAmount =
+  //   (await ZZZ_DAI_BPT_TOKEN_CONTRACT.balanceOf(pool.address)) / 1e18;
+  // const yourBPTAmount = (await BPT_STAKING_POOL.balanceOf(account)) / 1e18;
+
+  const totalDAIAmount =
+    (await ZZZ_DAI_BALANCER_POOL.getBalance(tokens.DAI.address)) / 1e18;
+  const totalZZZAmount =
+    (await ZZZ_DAI_BALANCER_POOL.getBalance(tokens.ZZZ.address)) / 1e18;
+
+  const DAIPerBPT = totalDAIAmount / totalBPTAmount;
+  const ZZZPerBPT = totalZZZAmount / totalBPTAmount;
+  // Find out reward rate
+  const weekly_reward = await getUniPoolWeeklyRewards(POOL_A);
+
+  const rewardPerToken = weekly_reward / totalStakedYAmount;
+  // Find out underlying assets of Y
+  // const ZZZPrice = await CURVE_Y_POOL.get_virtual_price() / 1e18;
+
+  // Look up prices
+  // const prices = await lookUpPrices(["yearn-finance"]);
+  // const YFIPrice = prices["yearn-finance"].usd;
+  const DAIPrice = await coingecko.getPricingFor(tokens.DAI.address, "USD");
+  // const BPTPrice = (await YFI_DAI_BALANCER_POOL.getSpotPrice(DAI_TOKEN_ADDR,YFII_TOKEN_ADDR) / 1e18) * DAIPrice;
+  const ZZZPrice = await coingecko.getPricingFor(ZZZ_TOKEN.address, "USD");
+  const BPTPrice = DAIPerBPT * DAIPrice.usd + ZZZPerBPT * ZZZPrice.usd;
+
+  const weeklyROI = (rewardPerToken * BPTPrice * 100) / ZZZPrice.usd;
+  console.log(BPTPrice);
+
+  return {
+    weeklyROI: weeklyROI.toFixed(2),
+    yearlyROI: (weeklyROI * 52).toFixed(2)
+  };
 }
 
 // _getERC20Balance = async (web3, asset, account, callback) => {

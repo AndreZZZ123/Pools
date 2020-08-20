@@ -5,6 +5,8 @@ import { tokens } from "../../misc/contracts";
 import Infobox from "../Infobox/Infobox";
 import Button from "../Button/Button";
 import uniswapicon from "../../assets/uniswap_corn1.svg";
+import zzztokenicon from "../../assets/zzz_token_logo.png";
+import ethicon from "../../assets/eth_icon.png";
 import { getERC20balance } from "../../helpers/eth";
 import "./Wallet.scss";
 
@@ -23,13 +25,13 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
 
   useEffect((): any => {
     if (!!account && !!library) {
-      getERC20balance(account, tokens.ZZZ, library).then((res) => {
+      getERC20balance(account, tokens.ZZZ, library).then(res => {
         if (res) {
           setZZZBalance(res);
         }
       });
 
-      getERC20balance(account, tokens.BPT, library).then((res) => {
+      getERC20balance(account, tokens.BPT, library).then(res => {
         if (res) {
           setBPTBalance(res);
         }
@@ -71,7 +73,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             : ""}
         </Infobox.Title>
         <Infobox.Title>
-          ETH{" "}
+          <img src={ethicon} className="wallet-balance-icon" alt="ethereum" />
           {balance === null
             ? "Error"
             : balance
@@ -79,7 +81,11 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             : ""}
         </Infobox.Title>
         <Infobox.Title>
-          ZZZ
+          <img
+            src={zzztokenicon}
+            className="wallet-balance-icon"
+            alt="zzz token"
+          />
           {ZZZBalance === null ? "Error" : balance ? ` ${ZZZBalance}` : ""}
         </Infobox.Title>
         <Infobox.Title>
