@@ -20,6 +20,10 @@ export async function getCurrentTotalStake(pool: Pool, provider) {
   return parseFloat(formatEther(totalSupply));
 }
 
+export async function stake(pool, signer) {
+  const contract = new ethers.Contract(pool.address, pool.abi, signer);
+}
+
 export async function getStakedBalance(address: string, pool: Pool, provider) {
   const contract = new ethers.Contract(pool.address, pool.abi, provider);
   const balance = await contract.balanceOf(address);
