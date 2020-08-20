@@ -83,7 +83,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             <img src={ethicon} className="wallet-balance-icon" alt="ethereum" />
             {balance ? `${parseFloat(formatEther(balance)).toFixed(4)}` : 0}
           </div>
-          <div className="currency-usd-value">${wethPrice.usd}</div>
+          <div className="currency-usd-value">1 = ${wethPrice.usd}</div>
         </WalletList.Currency>
         <WalletList.Currency>
           <div className="currency-with-icon">
@@ -94,7 +94,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             />
             {ZZZBalance ? ZZZBalance : 0}
           </div>
-          <div className="currency-usd-value">${zzzPrice.usd}</div>
+          <div className="currency-usd-value">1 = ${zzzPrice.usd}</div>
         </WalletList.Currency>
         <WalletList.Currency>
           <div className="currency-with-icon">
@@ -105,7 +105,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             />
             {BPTBalance ? BPTBalance : 0}
           </div>
-          <div className="currency-usd-value">${BPTPrice}</div>
+          <div className="currency-usd-value">1 = ${BPTPrice}</div>
         </WalletList.Currency>
       </WalletList>
       <div className="menu-buttons">
