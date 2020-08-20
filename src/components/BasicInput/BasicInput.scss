@@ -1,0 +1,34 @@
+@import "../../main.scss";
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  label {
+    font-weight: bold;
+    margin: $small-spacing;
+  }
+
+  input {
+    border-radius: 5px;
+    outline: none;
+    width: 60px;
+    padding: $small-spacing;
+    font-weight: bold;
+    font-size: $large-font-size;
+    text-align: center;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

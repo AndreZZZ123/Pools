@@ -1,4 +1,6 @@
+@import "../../main.scss";
+
 .menu {
-  flex: 0.3;
-  height: 100%;
+  width: 100vw;
+  margin: $default-spacing;
 }

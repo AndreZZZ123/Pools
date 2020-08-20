@@ -3,18 +3,26 @@
 .infobox {
   margin: 4px;
   padding: 7px;
+  display: flex;
+  flex-direction: row;
 }
 
 .infobox-content {
-  @include themify($themes) {
-    color: themed("textColor");
-    background-color: themed("InfoboxContentBackground");
-  }
+  // @include themify($themes) {
+  //   color: themed("textColor");
+  //   background-color: themed("InfoboxContentBackground");
+  // }
 }
 
 .infobox-title {
-  @include themify($themes) {
-    color: themed("textColor");
-    background-color: themed("infoBoxTitleBackground");
+  // @include themify($themes) {
+  //   color: themed("textColor");
+  //   background-color: themed("infoBoxTitleBackground");
+  // }
+}
+
+@media screen and (max-width: 1100px) {
+  .infobox {
+    flex-direction: column;
   }
 }

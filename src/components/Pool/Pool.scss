@@ -1,9 +1,9 @@
 @import "../../main.scss";
 
 .pool {
-  padding: 14px;
+  padding: $small-spacing;
   background-color: rgba(255, 255, 255, 0.1);
-  margin: 7px;
+  margin: $small-spacing;
   min-width: 350px;
   text-align: center;
   display: flex;
@@ -12,6 +12,10 @@
   border: 2px solid rgb(184, 184, 184);
   border-top-left-radius: 9px;
   border-bottom-right-radius: 9px;
+}
+
+h2 {
+  margin: $small-spacing 0;
 }
 
 .pool-extra {
@@ -41,4 +45,27 @@
 
 .pool-title {
   font-size: $huge-font-size;
+}
+
+.stake {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.max-button {
+  min-width: 25px;
+  padding: 4px;
+  margin-bottom: 14px;
+  @include themify($themes) {
+    background-color: themed("buttonColor");
+  }
+}
+
+.staking-button {
+  min-width: 40px !important;
+  height: 40px;
+  margin-bottom: 12px;
+  margin-left: $large-spacing;
 }

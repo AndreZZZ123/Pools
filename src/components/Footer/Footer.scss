@@ -1,8 +1,10 @@
+@import "../../main.scss";
+
 .footer {
   display: flex;
   flex-direction: row;
   color: rgb(129, 129, 129);
-  margin-bottom: 7px;
+  margin: $large-spacing 0;
 }
 
 .footer a {

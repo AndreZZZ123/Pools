@@ -5,6 +5,7 @@ import "./Menu.scss";
 
 type Props = {
   showWallet: boolean;
+
   setShowWallet: Function;
   setCurrentTheme: Function;
   currentTheme: string;
@@ -19,7 +20,7 @@ function Menu({
   const { active } = useWeb3React();
   return (
     <div className="menu">
-      {active && showWallet && (
+      {active && (
         <Wallet
           setShowWallet={setShowWallet}
           setCurrentTheme={setCurrentTheme}

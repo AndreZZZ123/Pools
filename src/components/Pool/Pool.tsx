@@ -4,10 +4,12 @@ import {
   checkAllowance,
   getAllowance,
   getCurrentTotalStake,
+  getERC20balance,
   getRewardsAvailable,
-  getStakedBalance
+  getStakedBalance,
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
+import BasicInput from "../BasicInput/BasicInput";
 import Button from "../Button/Button";
 import "./Pool.scss";
 
@@ -21,8 +23,12 @@ function Pool({ pool }: Props) {
   const [earned, setEarned] = useState(0);
   const [staked, setStaked] = useState(0);
   const [totalStake, setTotalStake] = useState(0);
+  const [stakeAmount, setStakeAmount] = useState("0");
+  const [maxAmount, setMaxAmount] = useState("0");
 
   const userPercentageOfTotal = staked > 0 ? (staked / totalStake) * 100 : 0;
+
+  const signer = library.getSigner();
 
   useEffect(() => {
     if (!!account) {
@@ -30,6 +36,7 @@ function Pool({ pool }: Props) {
       getStakedBalance(account, pool, library).then(setStaked);
       getCurrentTotalStake(pool, library).then(setTotalStake);
       getRewardsAvailable(account, pool, library).then(setEarned);
+      getERC20balance(account, pool.token, library).then(setMaxAmount);
     }
   }, [active, library, account, pool]);
 
@@ -58,13 +65,32 @@ function Pool({ pool }: Props) {
           </h3>
         </div>
         {!hasAllowance && (
-          <Button
-            onClick={() => getAllowance(account, pool, library.getSigner())}
-          >
+          <Button onClick={() => getAllowance(account, pool, signer)}>
             Approve token
           </Button>
         )}
-        <Button className={!hasAllowance ? "disabled" : ""}>Stake</Button>
+        <div className="stake">
+          {hasAllowance && (
+            <>
+              <BasicInput
+                onChange={(e) => setStakeAmount(e.target.value)}
+                className="zzz-amount"
+                type="number"
+                name={"Amount"}
+                value={stakeAmount}
+              />
+              <Button
+                onClick={() => setStakeAmount(maxAmount)}
+                className={`max-button`}
+              >
+                Max
+              </Button>
+            </>
+          )}
+        </div>
+        <Button className={`staking-button ${!hasAllowance ? "disabled" : ""}`}>
+          Stake
+        </Button>
       </section>
     </div>
   );

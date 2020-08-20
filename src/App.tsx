@@ -11,14 +11,20 @@ import "./App.scss";
 function App() {
   const { account, active } = useWeb3React();
   const [currentTheme, setCurrentTheme] = useState("vapor");
-  const [showWallet, setShowWallet] = useState(false);
+  const [showWallet, setShowWallet] = useState(true);
 
   return (
     <main id="app-root">
       <div className={`theme-${currentTheme}`}>
         <div className="app-container">
-          {account && (
-            <MenuIcon setShowWallet={setShowWallet} showWallet={showWallet} />
+          <MenuIcon setShowWallet={setShowWallet} showWallet={showWallet} />
+          {account && showWallet && (
+            <Menu
+              showWallet={showWallet}
+              setShowWallet={setShowWallet}
+              setCurrentTheme={setCurrentTheme}
+              currentTheme={currentTheme}
+            />
           )}
           <div className="content-with-sidebar">
             <div className="content">
@@ -33,14 +39,6 @@ function App() {
               )}
               <Connectors />
             </div>
-            {account && (
-              <Menu
-                showWallet={showWallet}
-                setShowWallet={setShowWallet}
-                setCurrentTheme={setCurrentTheme}
-                currentTheme={currentTheme}
-              />
-            )}
           </div>
           <Footer />
         </div>
