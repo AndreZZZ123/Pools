@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ZZZlogo1 from "../../assets/zzz_default_logo.png";
+import ZZZlogo1 from "../../assets/zzz_logo_transparent.png";
 import { tokens } from "../../misc/contracts";
 import coingecko from "../../helpers/coingecko";
 import Button from "../Button/Button";

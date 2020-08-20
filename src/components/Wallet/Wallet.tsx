@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { formatEther } from "ethers/lib/utils";
 import { tokens } from "../../misc/contracts";
-import Infobox from "../Infobox/Infobox";
 import Button from "../Button/Button";
 import uniswapicon from "../../assets/uniswap_corn1.svg";
 import zzztokenicon from "../../assets/zzz_token_logo.png";
 import ethicon from "../../assets/eth_icon.png";
-import { getERC20balance } from "../../helpers/eth";
+import bpticon from "../../assets/balancer_icon.webp";
+import { getERC20balance, getBPTPrice } from "../../helpers/eth";
 import "./Wallet.scss";
+import { usePrices } from "../../hooks/usePrices";
+import WalletList from "../WalletList/WalletList";
 
 type Props = {
   setShowWallet: Function;
@@ -18,6 +20,10 @@ type Props = {
 
 function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
   const { account, library, chainId, deactivate } = useWeb3React();
+  const zzzPrice = usePrices("ZZZ");
+  const wethPrice = usePrices("WETH");
+
+  const [BPTPrice, setBPTPrice] = useState("0");
 
   const [balance, setBalance] = useState(0);
   const [ZZZBalance, setZZZBalance] = useState<any>(0);
@@ -50,7 +56,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             setBalance(0);
           }
         });
-
+      getBPTPrice(library).then(setBPTPrice);
       return () => {
         stale = true;
         setBalance(0);
@@ -62,8 +68,8 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
 
   return (
     <div className="wallet">
-      <Infobox>
-        <Infobox.Title>
+      <WalletList>
+        <WalletList.Account>
           {account === null
             ? "-"
             : account
@@ -71,28 +77,37 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
                 account.length - 4
               )}`
             : ""}
-        </Infobox.Title>
-        <Infobox.Title>
-          <img src={ethicon} className="wallet-balance-icon" alt="ethereum" />
-          {balance === null
-            ? "Error"
-            : balance
-            ? `${parseFloat(formatEther(balance)).toFixed(4)}`
-            : ""}
-        </Infobox.Title>
-        <Infobox.Title>
-          <img
-            src={zzztokenicon}
-            className="wallet-balance-icon"
-            alt="zzz token"
-          />
-          {ZZZBalance === null ? "Error" : balance ? ` ${ZZZBalance}` : ""}
-        </Infobox.Title>
-        <Infobox.Title>
-          BPT
-          {BPTBalance === null ? "Error" : balance ? ` ${BPTBalance}` : ""}
-        </Infobox.Title>
-      </Infobox>
+        </WalletList.Account>
+        <WalletList.Currency>
+          <div className="currency-with-icon">
+            <img src={ethicon} className="wallet-balance-icon" alt="ethereum" />
+            {balance ? `${parseFloat(formatEther(balance)).toFixed(4)}` : 0}
+          </div>
+          <div className="currency-usd-value">${wethPrice.usd}</div>
+        </WalletList.Currency>
+        <WalletList.Currency>
+          <div className="currency-with-icon">
+            <img
+              src={zzztokenicon}
+              className="wallet-balance-icon"
+              alt="zzz token"
+            />
+            {ZZZBalance ? ZZZBalance : 0}
+          </div>
+          <div className="currency-usd-value">${zzzPrice.usd}</div>
+        </WalletList.Currency>
+        <WalletList.Currency>
+          <div className="currency-with-icon">
+            <img
+              src={bpticon}
+              className="wallet-balance-icon"
+              alt="balancer pool token"
+            />
+            {BPTBalance ? BPTBalance : 0}
+          </div>
+          <div className="currency-usd-value">${BPTPrice}</div>
+        </WalletList.Currency>
+      </WalletList>
       <div className="menu-buttons">
         <a
           href="https://beta.uniswap.info/pair/0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a"

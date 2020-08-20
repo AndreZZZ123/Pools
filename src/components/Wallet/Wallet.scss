@@ -14,6 +14,18 @@
   align-items: center;
 }
 
+.currency-with-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.currency-usd-value {
+  font-weight: normal;
+  font-size: $default-font-size;
+  margin-left: $default-spacing;
+}
+
 .deactivate-button {
   max-width: 9.5em;
 }

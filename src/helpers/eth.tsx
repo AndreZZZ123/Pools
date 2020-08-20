@@ -22,20 +22,17 @@ export async function getCurrentTotalStake(pool: Pool, provider) {
 
 export async function stake(pool, signer, amount) {
   const contract = new ethers.Contract(pool.address, pool.abi, signer);
-  const res = await contract.stake(parseEther(amount));
-  console.log(res);
+  await contract.stake(parseEther(amount));
 }
 
 export async function claim(pool, signer) {
   const contract = new ethers.Contract(pool.address, pool.abi, signer);
-  const res = await contract.getReward();
-  console.log(res);
+  await contract.getReward();
 }
 
 export async function exit(pool, signer) {
   const contract = new ethers.Contract(pool.address, pool.abi, signer);
-  const res = await contract.exit();
-  console.log(res);
+  await contract.exit();
 }
 
 export async function getStakedBalance(address: string, pool: Pool, provider) {
@@ -222,6 +219,26 @@ async function BPTYield(pool: Pool, account: string, provider) {
     weeklyROI: weeklyROI.toFixed(2),
     yearlyROI: (weeklyROI * 52).toFixed(2)
   };
+}
+
+export async function getBPTPrice(provider) {
+  const ZZZ_DAI_BALANCER_POOL = new ethers.Contract(
+    otherPools[0].address,
+    otherPools[0].abi,
+    provider
+  );
+  const totalBPTAmount = (await ZZZ_DAI_BALANCER_POOL.totalSupply()) / 1e18;
+  const totalDAIAmount =
+    (await ZZZ_DAI_BALANCER_POOL.getBalance(tokens.DAI.address)) / 1e18;
+  const totalZZZAmount =
+    (await ZZZ_DAI_BALANCER_POOL.getBalance(tokens.ZZZ.address)) / 1e18;
+  const ZZZPerBPT = totalZZZAmount / totalBPTAmount;
+  const ZZZPrice = await coingecko.getPricingFor(tokens.ZZZ.address, "USD");
+  const DAIPerBPT = totalDAIAmount / totalBPTAmount;
+  const DAIPrice = await coingecko.getPricingFor(tokens.DAI.address, "USD");
+  const BPTPrice = DAIPerBPT * DAIPrice.usd + ZZZPerBPT * ZZZPrice.usd;
+
+  return BPTPrice.toFixed(2);
 }
 
 // _getERC20Balance = async (web3, asset, account, callback) => {

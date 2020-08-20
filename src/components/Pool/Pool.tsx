@@ -29,6 +29,7 @@ function Pool({ pool }: Props) {
   const [totalStake, setTotalStake] = useState(0);
   const [stakeAmount, setStakeAmount] = useState("0");
   const [maxAmount, setMaxAmount] = useState("0");
+  const [loadingYield, setLoadingYield] = useState(true);
 
   const userPercentageOfTotal = staked > 0 ? (staked / totalStake) * 100 : 0;
 
@@ -43,7 +44,10 @@ function Pool({ pool }: Props) {
       getCurrentTotalStake(pool, library).then(setTotalStake);
       getRewardsAvailable(account, pool, library).then(setEarned);
       getERC20balance(account, pool.token, library).then(setMaxAmount);
-      getYieldsFor(pool.name, account, library).then(setYields);
+      getYieldsFor(pool.name, account, library).then(res => {
+        setYields(res);
+        setLoadingYield(false);
+      });
     }
   }, [active, library, account, pool]);
 
@@ -57,6 +61,7 @@ function Pool({ pool }: Props) {
       </div>
       <section className="pool-content">
         <div className="pool-info">{pool.info}</div>
+        {loadingYield && <b>Loading yield info..</b>}
         {yields && (
           <div className="pool-yields">
             <div>
@@ -68,17 +73,17 @@ function Pool({ pool }: Props) {
           </div>
         )}
         <div className="pool-extra">
-          <h3 className="pool-extra-title">
-            Staking {staked} {pool.token.name} of {Math.trunc(totalStake)}{" "}
-            {pool.token.name} <br />
-            {userPercentageOfTotal.toFixed(4)}% of total
-          </h3>
+          <h4 className="pool-extra-title">
+            Staking <b>{staked}</b> {pool.token.name} of{" "}
+            <b>{Math.trunc(totalStake)}</b> {pool.token.name} <br />
+            <b>{userPercentageOfTotal.toFixed(4)}%</b> of total
+          </h4>
           <h3 className="pool-extra-title">
             Rewards{" "}
             <span role="img" aria-label="star">
               ⭐️
             </span>{" "}
-            {earned.toFixed(4)} {pool.reward.name}
+            <b>{earned.toFixed(4)}</b> {pool.reward.name}
           </h3>
           {staked > 0 && (
             <div className="claim-exit-buttons">
