@@ -25,6 +25,10 @@ h2 {
   align-items: center;
 }
 
+.pool-extra-title {
+  margin: $small-spacing;
+}
+
 .pool-icon {
   font-size: 75px;
 }
@@ -41,6 +45,14 @@ h2 {
     max-width: 9.5em;
     margin-top: $default-spacing;
   }
+}
+
+.pool-yields {
+  padding: $small-spacing;
+  color: rgb(165, 219, 83);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .pool-title {

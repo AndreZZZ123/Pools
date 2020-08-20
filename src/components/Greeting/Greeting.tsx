@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ZZZlogo1 from "../../assets/zzz_default_logo.png";
 import { tokens } from "../../misc/contracts";
+import coingecko from "../../helpers/coingecko";
 import "./Greeting.scss";
 
 function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
   const [currentPrice, setCurrentPrice] = useState<any>("checking price");
   useEffect(() => {
-    fetch(
-      `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokens.ZZZ.address}&vs_currencies=usd`
-    ).then((res) =>
-      res.json().then((res) => {
-        for (const [, value] of Object.entries(res)) {
-          setCurrentPrice(value);
-        }
-      })
-    );
+    coingecko
+      .getPricingFor(tokens.ZZZ.address, "USD")
+      .then(res => setCurrentPrice(res));
   }, []);
   return (
     <div className="greeting">

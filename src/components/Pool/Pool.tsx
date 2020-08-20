@@ -7,6 +7,7 @@ import {
   getERC20balance,
   getRewardsAvailable,
   getStakedBalance,
+  getYieldsFor
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
@@ -30,6 +31,8 @@ function Pool({ pool }: Props) {
 
   const signer = library.getSigner();
 
+  const [yields, setYields] = useState<any>(null);
+
   useEffect(() => {
     if (!!account) {
       checkAllowance(account, pool, library).then(setHasAllowance);
@@ -37,6 +40,7 @@ function Pool({ pool }: Props) {
       getCurrentTotalStake(pool, library).then(setTotalStake);
       getRewardsAvailable(account, pool, library).then(setEarned);
       getERC20balance(account, pool.token, library).then(setMaxAmount);
+      getYieldsFor(pool.name, account, library).then(setYields);
     }
   }, [active, library, account, pool]);
 
@@ -50,6 +54,16 @@ function Pool({ pool }: Props) {
       </div>
       <section className="pool-content">
         <div className="pool-info">{pool.info}</div>
+        {yields && (
+          <div className="pool-yields">
+            <div>
+              WPY +<b>{yields.weeklyROI}%</b>
+            </div>
+            <div>
+              APY +<b>{yields.yearlyROI}%</b>
+            </div>
+          </div>
+        )}
         <div className="pool-extra">
           <h3 className="pool-extra-title">
             Staking {staked} {pool.token.name} of {Math.trunc(totalStake)}{" "}
@@ -73,7 +87,7 @@ function Pool({ pool }: Props) {
           {hasAllowance && (
             <>
               <BasicInput
-                onChange={(e) => setStakeAmount(e.target.value)}
+                onChange={e => setStakeAmount(e.target.value)}
                 className="zzz-amount"
                 type="number"
                 name={"Amount"}
