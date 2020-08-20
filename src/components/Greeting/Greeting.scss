@@ -13,3 +13,8 @@
 .greeting-current-price {
   margin-bottom: $small-spacing;
 }
+
+.header {
+  display: flex;
+  flex-direction: row;
+}

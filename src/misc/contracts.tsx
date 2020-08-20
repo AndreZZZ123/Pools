@@ -14,7 +14,7 @@ export const tokens: { [tokenName: string]: Token } = {
   ZZZETHUNI: {
     name: "ZZZ/ETH UNI LP",
     address: "0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a",
-    abi: require("./abi/uniswap_lp_abi.json")
+    abi: require("./abi/erc20_abi.json")
   },
   WETH: {
     name: "WETH",
@@ -47,30 +47,30 @@ export const devTokens: { [tokenName: string]: Token } = {
 };
 
 export const pools: Pool[] = [
-  // {
-  //   name: "Balancer",
-  //   address: "0x2d0b69300c4637625681a19d840e8e9c1ebe4126",
-  //   token: tokens.BPT,
-  //   reward: tokens.ZZZ,
-  //   poolIcon: "🌱",
-  //   abi: require("./abi/zzz_ bpt_pool_abi.json"),
-  //   info: "Stake your BPT for ZZZ token reward."
-  // },
-  // {
-  //   name: "ZZZ",
-  //   address: "0xeEE0B2ED62615441CE31c3166a4179a4B8FcE615",
-  //   token: tokens.ZZZ,
-  //   reward: tokens.ZZZETHUNI,
-  //   poolIcon: "🌈",
-  //   abi: require("./abi/zzz_uni_pool_abi.json"),
-  //   info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward."
-  // },
+  {
+    name: "Balancer",
+    address: "0x2d0b69300c4637625681a19d840e8e9c1ebe4126",
+    token: tokens.BPT,
+    reward: tokens.ZZZ,
+    poolIcon: "🌱",
+    abi: require("./abi/zzz_bpt_pool_abi.json"),
+    info: "Stake your BPT for ZZZ token reward."
+  },
+  {
+    name: "ZZZ",
+    address: "0xeEE0B2ED62615441CE31c3166a4179a4B8FcE615",
+    token: tokens.ZZZ,
+    reward: tokens.ZZZETHUNI,
+    poolIcon: "🌈",
+    abi: require("./abi/zzz_uni_pool_abi.json"),
+    info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward."
+  },
   {
     name: "Kovan 1",
     address: "0x6a544d7c5754a147f8ce742f73f34d1eb7612f53",
     token: devTokens.ZZZ,
     reward: devTokens.ZZZETHUNI,
-    poolIcon: "🌱",
+    poolIcon: "🔮",
     abi: require("./abi/zzz_bpt_pool_abi.json"),
     info: "Stake."
   },
@@ -79,7 +79,7 @@ export const pools: Pool[] = [
     address: "0x844eec2d28e98fc037eb080530e3b68bf2ebe0b7",
     token: devTokens.ZZZETHUNI,
     reward: devTokens.ZZZETHUNI,
-    poolIcon: "🌈",
+    poolIcon: "😴",
     abi: require("./abi/zzz_uni_pool_abi.json"),
     info: "Just do it."
   }

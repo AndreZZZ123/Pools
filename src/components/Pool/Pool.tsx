@@ -81,7 +81,7 @@ function Pool({ pool }: Props) {
             {earned.toFixed(4)} {pool.reward.name}
           </h3>
           {staked > 0 && (
-            <div className="claim-exit-button">
+            <div className="claim-exit-buttons">
               <Button
                 onClick={() => claim(pool, signer)}
                 className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
@@ -92,7 +92,10 @@ function Pool({ pool }: Props) {
                 onClick={() => exit(pool, signer)}
                 className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
               >
-                exit
+                <div className="exit-button-text">
+                  Exit
+                  <div className="extra-info">Claim & Remove stake</div>
+                </div>
               </Button>
             </div>
           )}

@@ -10,7 +10,7 @@ import "./App.scss";
 
 function App() {
   const { account, active } = useWeb3React();
-  const [currentTheme, setCurrentTheme] = useState("vapor");
+  const [currentTheme, setCurrentTheme] = useState("other");
   const [showWallet, setShowWallet] = useState(true);
 
   return (
@@ -28,19 +28,17 @@ function App() {
               currentTheme={currentTheme}
             />
           )}
-          <div className="content-with-sidebar">
-            <div className="content">
-              {!account ? (
-                <Greeting
-                  currentTheme={currentTheme}
-                  setCurrentTheme={setCurrentTheme}
-                  active={active}
-                />
-              ) : (
-                <Products />
-              )}
-              <Connectors />
-            </div>
+          <div className="content">
+            {!account ? (
+              <Greeting
+                currentTheme={currentTheme}
+                setCurrentTheme={setCurrentTheme}
+                active={active}
+              />
+            ) : (
+              <Products />
+            )}
+            <Connectors />
           </div>
           <Footer />
         </div>

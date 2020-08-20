@@ -112,7 +112,7 @@ input:checked + .slider:before {
 
 .theme-toggler {
   position: absolute;
-  top: 5px;
+  top: 15px;
   margin-top: 5px;
 }
 
@@ -135,13 +135,13 @@ input:checked + .slider:before {
   fill: white;
   stroke: white;
   color: white;
-  top: 25px;
+  top: 15px;
   margin-bottom: $default-spacing;
   transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .toggled {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 .content {
@@ -153,6 +153,11 @@ input:checked + .slider:before {
 
 a {
   text-decoration: none;
+}
+
+.button:active {
+  transform: translateY(3px);
+  transition: transform 0.12s ease;
 }
 
 @media screen and (max-width: 700px) {

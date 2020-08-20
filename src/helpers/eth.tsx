@@ -51,8 +51,6 @@ export async function checkAllowance(address: string, pool: Pool, provider) {
     provider
   );
 
-  console.log(pool.token.abi);
-
   const allowance = await contract.allowance(address, pool.address);
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
@@ -64,7 +62,7 @@ export async function getAllowance(address, pool: Pool, signer) {
     pool.token.abi,
     signer
   );
-  let wei = ethers.utils.parseEther("9999999");
+  let wei = ethers.utils.parseEther("999999999");
   const res = await contract.approve(pool.address, wei);
   console.log(res);
 }

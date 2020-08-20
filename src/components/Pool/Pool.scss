@@ -12,6 +12,9 @@
   border: 2px solid rgb(184, 184, 184);
   border-top-left-radius: 9px;
   border-bottom-right-radius: 9px;
+  -webkit-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
 }
 
 h2 {
@@ -30,7 +33,7 @@ h2 {
 }
 
 .pool-icon {
-  font-size: 75px;
+  font-size: 60px;
 }
 
 .pool-content {
@@ -55,21 +58,29 @@ h2 {
   align-items: flex-start;
 }
 
+.claim-exit-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.extra-info {
+  font-size: 8px;
+}
+
 .pool-title {
   font-size: $huge-font-size;
 }
 
 .stake {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-end;
   justify-content: center;
 }
 
 .max-button {
   min-width: 25px;
   padding: 4px;
-  margin-bottom: 14px;
   @include themify($themes) {
     background-color: themed("buttonColor");
   }
@@ -79,5 +90,4 @@ h2 {
   min-width: 40px !important;
   height: 40px;
   margin-bottom: 12px;
-  margin-left: $large-spacing;
 }

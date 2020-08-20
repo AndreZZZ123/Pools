@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import ZZZlogo1 from "../../assets/zzz_default_logo.png";
 import { tokens } from "../../misc/contracts";
 import coingecko from "../../helpers/coingecko";
+import Button from "../Button/Button";
+import telegramicon from "../../assets/telegram_logo.webp";
+import forumsicon from "../../assets/forums_logo.png";
 import "./Greeting.scss";
 
 function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
@@ -13,6 +16,26 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
   }, []);
   return (
     <div className="greeting">
+      <div className="header">
+        <a
+          href="https://t.me/ZZZfinance/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="button-header" icon={telegramicon}>
+            Telegram
+          </Button>
+        </a>
+        <a
+          href="https://forums.zzz.finance/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="button-header" icon={forumsicon}>
+            Forums
+          </Button>
+        </a>
+      </div>
       <img src={ZZZlogo1} alt="ZZZ" className="zzz-logo" />
       <div className="theme-toggler">
         <label className="switch">
@@ -26,7 +49,7 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
         </label>
       </div>
       <h1 className="title">ZZZ.finance</h1>
-      <h3>Sleep. Earn.</h3>
+      <h3>Sleep. Earn. Smile.</h3>
       <h2 className="greeting-current-price">1 ZZZ = ${currentPrice.usd}</h2>
     </div>
   );
