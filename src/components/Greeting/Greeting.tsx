@@ -16,6 +16,17 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
   }, []);
   return (
     <div className="greeting">
+      <div className="theme-toggler">
+        <label className="switch">
+          <input
+            type="checkbox"
+            onChange={() =>
+              setCurrentTheme(currentTheme === "vapor" ? "other" : "vapor")
+            }
+          />
+          <span className="slider round"></span>
+        </label>
+      </div>
       <div className="header">
         <a
           href="https://t.me/ZZZfinance/"
@@ -37,17 +48,7 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
         </a>
       </div>
       <img src={ZZZlogo1} alt="ZZZ" className="zzz-logo" />
-      <div className="theme-toggler">
-        <label className="switch">
-          <input
-            type="checkbox"
-            onChange={() =>
-              setCurrentTheme(currentTheme === "vapor" ? "other" : "vapor")
-            }
-          />
-          <span className="slider round"></span>
-        </label>
-      </div>
+
       <h1 className="title">ZZZ.finance</h1>
       <h3>Sleep. Earn. Smile.</h3>
       <h2 className="greeting-current-price">1 ZZZ = ${currentPrice.usd}</h2>

@@ -43,7 +43,7 @@ export const pools: Pool[] = [
     address: "0xeEE0B2ED62615441CE31c3166a4179a4B8FcE615",
     token: tokens.ZZZ,
     reward: tokens.ZZZETHUNI,
-    poolIcon: "🌈",
+    poolIcon: "😴",
     abi: require("./abi/zzz_uni_pool_abi.json"),
     info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward."
   }

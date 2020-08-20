@@ -9,7 +9,7 @@ import uniswapicon from "../../assets/uniswap_corn1.svg";
 import "./Connectors.scss";
 
 enum ConnectorNames {
-  Injected = "Unlock wallet",
+  Injected = "Unlock wallet"
   // Network = "Network",
   // WalletConnect = "WalletConnect",
   // WalletLink = "WalletLink",
@@ -24,7 +24,7 @@ enum ConnectorNames {
 }
 
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
-  [ConnectorNames.Injected]: injected,
+  [ConnectorNames.Injected]: injected
   // [ConnectorNames.Network]: network,
   // [ConnectorNames.WalletConnect]: walletconnect,
   // [ConnectorNames.WalletLink]: walletlink,
@@ -68,7 +68,7 @@ function Connectors() {
             UNISWAP
           </Button>
         </a>
-        {Object.keys(connectorsByName).map((name) => {
+        {Object.keys(connectorsByName).map(name => {
           const currentConnector = connectorsByName[name];
           // const activating = currentConnector === activatingConnector;
           // const connected = currentConnector === connector;
@@ -81,6 +81,7 @@ function Connectors() {
                 setActivatingConnector(currentConnector);
                 activate(connectorsByName[name]);
               }}
+              key={name}
             >
               <div className="connector">
                 {/* {connected && (

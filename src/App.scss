@@ -110,9 +110,7 @@ input:checked + .slider:before {
 }
 
 .theme-toggler {
-  position: absolute;
-  top: 15px;
-  margin-top: 5px;
+  margin-bottom: $default-spacing;
 }
 
 .disabled {

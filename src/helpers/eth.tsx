@@ -60,8 +60,7 @@ export async function getAllowance(address, pool: Pool, signer) {
     signer
   );
   let wei = ethers.utils.parseEther("999999999");
-  const res = await contract.approve(pool.address, wei);
-  console.log(res);
+  await contract.approve(pool.address, wei);
 }
 
 export async function getRewardsAvailable(address, pool: Pool, provider) {
@@ -121,7 +120,6 @@ async function uniYield(
 
   const prices = await coingecko.getPricingFor(tokens.WETH.address, "USD");
 
-  console.log(prices);
   const ethPrice = prices.usd;
   const totalPoolValue = totalWethInUNI * ethPrice * 2;
   const UNIPrice = totalPoolValue / totalUniSupply;

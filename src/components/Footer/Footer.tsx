@@ -37,11 +37,7 @@ function Footer() {
         </Button>
       </a>
       <a href="mailto:hello@zzz.finance">
-        <Button
-          className="button-footer"
-          icon={emailicon}
-          iconStyle={{ stroke: "white" }}
-        >
+        <Button className="button-footer" icon={emailicon}>
           Email
         </Button>
       </a>

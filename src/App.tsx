@@ -12,7 +12,6 @@ function App() {
   const { account, active } = useWeb3React();
   const [currentTheme, setCurrentTheme] = useState("other");
   const [showWallet, setShowWallet] = useState(true);
-
   return (
     <main id="app-root">
       <div className={`theme-${currentTheme}`}>

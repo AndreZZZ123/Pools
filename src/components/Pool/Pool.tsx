@@ -120,12 +120,15 @@ function Pool({ pool }: Props) {
                 name={"Amount"}
                 value={stakeAmount}
               />
-              <Button
-                onClick={() => setStakeAmount(maxAmount)}
-                className={`max-button`}
-              >
-                Max
-              </Button>
+
+              {parseInt(maxAmount) > 0 && (
+                <Button
+                  onClick={() => setStakeAmount(maxAmount)}
+                  className={`max-button`}
+                >
+                  Max
+                </Button>
+              )}
             </>
           )}
         </div>
