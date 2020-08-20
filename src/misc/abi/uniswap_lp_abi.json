@@ -442,8 +442,7 @@
     ],
     "constant": true,
     "payable": false,
-    "type": "function",
-    "gas": 1925
+    "type": "function"
   },
   {
     "name": "name",

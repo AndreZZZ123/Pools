@@ -7,7 +7,10 @@ import {
   getERC20balance,
   getRewardsAvailable,
   getStakedBalance,
-  getYieldsFor
+  getYieldsFor,
+  stake,
+  claim,
+  exit
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
@@ -77,6 +80,22 @@ function Pool({ pool }: Props) {
             </span>{" "}
             {earned.toFixed(4)} {pool.reward.name}
           </h3>
+          {staked > 0 && (
+            <div className="claim-exit-button">
+              <Button
+                onClick={() => claim(pool, signer)}
+                className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
+              >
+                Claim
+              </Button>
+              <Button
+                onClick={() => exit(pool, signer)}
+                className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
+              >
+                exit
+              </Button>
+            </div>
+          )}
         </div>
         {!hasAllowance && (
           <Button onClick={() => getAllowance(account, pool, signer)}>
@@ -102,7 +121,10 @@ function Pool({ pool }: Props) {
             </>
           )}
         </div>
-        <Button className={`staking-button ${!hasAllowance ? "disabled" : ""}`}>
+        <Button
+          onClick={() => stake(pool, signer, stakeAmount)}
+          className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
+        >
           Stake
         </Button>
       </section>

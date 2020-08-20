@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { formatEther } from "ethers/lib/utils";
+import { formatEther, parseEther } from "ethers/lib/utils";
 import { pools, tokens } from "../misc/contracts";
 import { Pool, Token } from "../types";
 import coingecko from "./coingecko";
@@ -20,8 +20,22 @@ export async function getCurrentTotalStake(pool: Pool, provider) {
   return parseFloat(formatEther(totalSupply));
 }
 
-export async function stake(pool, signer) {
+export async function stake(pool, signer, amount) {
   const contract = new ethers.Contract(pool.address, pool.abi, signer);
+  const res = await contract.stake(parseEther(amount));
+  console.log(res);
+}
+
+export async function claim(pool, signer) {
+  const contract = new ethers.Contract(pool.address, pool.abi, signer);
+  const res = await contract.getReward();
+  console.log(res);
+}
+
+export async function exit(pool, signer) {
+  const contract = new ethers.Contract(pool.address, pool.abi, signer);
+  const res = await contract.exit();
+  console.log(res);
 }
 
 export async function getStakedBalance(address: string, pool: Pool, provider) {
@@ -31,16 +45,15 @@ export async function getStakedBalance(address: string, pool: Pool, provider) {
 }
 
 export async function checkAllowance(address: string, pool: Pool, provider) {
-  console.log(pool.token.abi);
   const contract = new ethers.Contract(
     pool.token.address,
     pool.token.abi,
     provider
   );
 
-  console.log(address, pool.address);
+  console.log(pool.token.abi);
+
   const allowance = await contract.allowance(address, pool.address);
-  console.log(allowance);
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
 }

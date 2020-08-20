@@ -37,7 +37,7 @@ export const devTokens: { [tokenName: string]: Token } = {
   ZZZETHUNI: {
     name: "UNI",
     address: "0xf63cF54f83932bf900838F8C4eb4A2DB6Dc23c96",
-    abi: require("./abi/uniswap_lp_abi.json")
+    abi: require("./abi/erc20_abi.json")
   },
   WETH: {
     name: "WETH",
@@ -71,7 +71,7 @@ export const pools: Pool[] = [
     token: devTokens.ZZZ,
     reward: devTokens.ZZZETHUNI,
     poolIcon: "🌱",
-    abi: require("./abi/zzz_ bpt_pool_abi.json"),
+    abi: require("./abi/zzz_bpt_pool_abi.json"),
     info: "Stake."
   },
   {
