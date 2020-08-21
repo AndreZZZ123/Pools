@@ -19,7 +19,7 @@ export const tokens: { [tokenName: string]: Token } = {
   ZZZNAPUNI: {
     name: "ZZZNAPUNI",
     // Change this
-    address: "0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a",
+    address: "0x0DE0322D3ac0d5002e2bc9c3a188728728D90799",
     abi: require("./abi/erc20_abi.json")
   },
   WETH: {
