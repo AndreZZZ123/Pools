@@ -28,20 +28,7 @@ export const tokens: { [tokenName: string]: Token } = {
   },
   NAPS: {
     name: "NAPS",
-    address: "0x9ebcf5928e1903f490707b24404bec32d85b5503",
-    abi: require("./abi/erc20_abi.json")
-  }
-};
-
-export const devTokens: { [tokenName: string]: Token } = {
-  ZZZ: {
-    name: "ZZZ",
-    address: "0x9f5d2da0d3cf4c710dc3efe6e3a790fc363a4ec8",
-    abi: require("./abi/erc20_abi.json")
-  },
-  NAPS: {
-    name: "NAPS",
-    address: "0x9ebcf5928e1903f490707b24404bec32d85b5503",
+    address: "0x66b3037aa8dd64c3ef1aee13a4d1f2509f672d1c",
     abi: require("./abi/erc20_abi.json")
   }
 };
@@ -49,6 +36,7 @@ export const devTokens: { [tokenName: string]: Token } = {
 export const pools: Pool[] = [
   {
     name: "BPT",
+    uiName: "Sleeper",
     address: "0x2d0b69300c4637625681a19d840e8e9c1ebe4126",
     token: tokens.BPT,
     reward: tokens.ZZZ,
@@ -60,10 +48,11 @@ export const pools: Pool[] = [
   },
   {
     name: "ZZZ",
+    uiName: "Dreamer",
     address: "0xeEE0B2ED62615441CE31c3166a4179a4B8FcE615",
     token: tokens.ZZZ,
     reward: tokens.ZZZETHUNI,
-    poolIcon: "😴",
+    poolIcon: "🔮",
     abi: require("./abi/zzz_uni_pool_abi.json"),
     info: "Stake ZZZ for ZZZ/ETH UNI LP token reward.",
     buyAssetFrom:
@@ -71,10 +60,23 @@ export const pools: Pool[] = [
   },
   {
     name: "NAPS",
-    address: "0xab6a0667ccf1d0daf1db223e0695de49aa4d1bb1",
-    token: devTokens.ZZZ,
-    reward: devTokens.NAPS,
-    poolIcon: "🔮",
+    uiName: "Snoozer",
+    address: "0x05d0c213386e25BFB3f3872FCE6c7c7998A3E54C",
+    token: tokens.ZZZ,
+    reward: tokens.NAPS,
+    poolIcon: "💤",
+    abi: require("./abi/multiplier_pool_abi.json"),
+    info: "Stake ZZZ/NAP-UNI for NAPS",
+    buyAssetFrom: "",
+    boostAvailable: true
+  },
+  {
+    name: "NAPS2",
+    uiName: "Napper",
+    address: "0x8EC7466a5025aC26368bD8b8Cfd2571F9bC0DC6F",
+    token: tokens.ZZZ,
+    reward: tokens.NAPS,
+    poolIcon: "😴",
     abi: require("./abi/multiplier_pool_abi.json"),
     info: "Stake ZZZ for NAPS",
     buyAssetFrom: "",

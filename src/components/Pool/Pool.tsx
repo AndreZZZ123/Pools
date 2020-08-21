@@ -102,7 +102,7 @@ function Pool({ pool }: Props) {
         <div role="img" className="pool-icon">
           {pool.poolIcon}
         </div>
-        <h2>{pool.name} Pool</h2>
+        <h2>{pool.uiName}</h2>
       </div>
       <section className="pool-content">
         <div className="pool-info">{pool.info}</div>

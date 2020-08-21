@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { formatEther, parseEther } from "ethers/lib/utils";
-import { pools, otherPools, tokens, devTokens } from "../misc/contracts";
+import { pools, otherPools, tokens } from "../misc/contracts";
 import { Pool, Token } from "../types";
 import coingecko from "./coingecko";
 
@@ -81,8 +81,8 @@ export async function checkBoostAllowance(
   provider
 ) {
   const contract = new ethers.Contract(
-    devTokens.NAPS.address,
-    devTokens.NAPS.abi,
+    tokens.NAPS.address,
+    tokens.NAPS.abi,
     provider
   );
 
@@ -100,8 +100,8 @@ export async function getBoostMultiplier(address, pool: Pool, provider) {
 
 export async function getBoostAllowance(address, pool: Pool, signer) {
   const contract = new ethers.Contract(
-    devTokens.NAPS.address,
-    devTokens.NAPS.abi,
+    tokens.NAPS.address,
+    tokens.NAPS.abi,
     signer
   );
   let wei = ethers.utils.parseEther("999999999");
