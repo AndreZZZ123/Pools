@@ -16,8 +16,10 @@
 
 .wallet-list-account {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .wallet-list-currency {

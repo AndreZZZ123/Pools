@@ -4,7 +4,7 @@
   padding: $small-spacing;
   background-color: rgba(255, 255, 255, 0.1);
   margin: $small-spacing;
-  min-width: 350px;
+  min-width: 320px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ h2 {
 
 .claim-exit-buttons {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .extra-info {
@@ -102,4 +102,19 @@ h2 {
   min-width: 40px !important;
   height: 40px;
   margin-bottom: 12px;
+}
+
+.cannot-stake {
+  margin-bottom: $default-spacing;
+}
+
+@media screen and (max-width: 1000px) {
+  .pool {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 370px) {
+  .pool {
+    border: 0;
+  }
 }

@@ -22,13 +22,19 @@ function Wallet({ setShowWallet }: Props) {
     <div className="wallet">
       <WalletList>
         <WalletList.Account>
-          {account === null
-            ? "-"
-            : account
-            ? `✅ ${account.substring(0, 6)}...${account.substring(
-                account.length - 4
-              )}`
-            : ""}
+          {account && (
+            <div className="account-connected">
+              <div>
+                <span role="img" aria-label="connected">
+                  ✅
+                </span>
+              </div>
+              <div className="account-address">
+                ${account.substring(0, 6)}...$
+                {account.substring(account.length - 4)}
+              </div>
+            </div>
+          )}
         </WalletList.Account>
         {ListedTokens.map(({ name, icon }) => (
           <WalletList.Currency key={`wallet-currency-${name}`}>

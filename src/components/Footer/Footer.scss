@@ -17,6 +17,10 @@
 @media screen and (max-width: 460px) {
   .footer {
     flex-direction: column;
+    margin-top: $default-spacing;
+    a {
+      margin: $default-spacing 0;
+    }
     .button {
       box-shadow: none;
     }
