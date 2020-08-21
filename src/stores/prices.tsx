@@ -29,7 +29,12 @@ class Prices {
     provider.getBalance(account).then((balance: any) => {
       const etherAmount = formatEther(balance);
       const number = parseFloat(etherAmount);
-      this.balances.set("WETH", parseFloat(number.toFixed(4)));
+      console.log(number);
+      if (number === 0) {
+        this.balances.set("WETH", "0.0000");
+      } else {
+        this.balances.set("WETH", parseFloat(number.toFixed(4)));
+      }
     });
   }
 

@@ -1,15 +1,15 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useEffect } from "react";
-import { injected } from "../../misc/connectors";
+import { injected, walletconnect } from "../../misc/connectors";
 import MetaMask from "../../assets/metamask_icon.svg";
 import Button from "../Button/Button";
 import "./Connectors.scss";
 
 enum ConnectorNames {
-  Injected = "Unlock wallet"
+  Injected = "Browser wallet",
   // Network = "Network",
-  // WalletConnect = "WalletConnect"
-  // WalletLink = "WalletLink",
+  WalletConnect = "Mobile wallet"
+  // WalletLink = "WalletLink"
   // Ledger = "Ledger"
   // Trezor = "Trezor",
   // Frame = "Frame",
@@ -21,10 +21,10 @@ enum ConnectorNames {
 }
 
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
-  [ConnectorNames.Injected]: injected
+  [ConnectorNames.Injected]: injected,
   // [ConnectorNames.Network]: network,
-  // [ConnectorNames.WalletConnect]: walletconnect
-  // [ConnectorNames.WalletLink]: walletlink,
+  [ConnectorNames.WalletConnect]: walletconnect
+  // [ConnectorNames.WalletLink]: walletlink
   // [ConnectorNames.Ledger]: ledger
   // [ConnectorNames.Trezor]: trezor,
   // [ConnectorNames.Frame]: frame,
@@ -72,11 +72,13 @@ function Connectors() {
                   </span>
                 )} */}
                 <div>{name}</div>
-                <img
-                  src={MetaMask}
-                  alt="MetaMask"
-                  className="icon metamask-icon"
-                />
+                {name !== "Mobile wallet" && (
+                  <img
+                    src={MetaMask}
+                    alt="MetaMask"
+                    className="icon metamask-icon"
+                  />
+                )}
               </div>
             </Button>
           );

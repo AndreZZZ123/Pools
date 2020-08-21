@@ -13,7 +13,7 @@ import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
 const POLLING_INTERVAL = 12000;
 const RPC_URLS: { [chainId: number]: string } = {
-  1: process.env.RPC_URL_1 as string,
+  1: "https://mainnet.infura.io/v3/1cc6414f2ea040efb5b04b0e850f0aa4" as string,
   4: process.env.RPC_URL_4 as string
 };
 
@@ -32,11 +32,6 @@ export const walletconnect = new WalletConnectConnector({
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
 });
-
-// export const walletlink = new WalletLinkConnector({
-//   url: RPC_URLS[1],
-//   appName: "web3-react example",
-// });
 
 // export const ledger = new LedgerConnector({
 //   chainId: 1,
