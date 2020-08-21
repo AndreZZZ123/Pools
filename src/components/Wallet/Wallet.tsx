@@ -48,7 +48,9 @@ function Wallet({ setShowWallet }: Props) {
                       alt={name}
                     />
                   ) : (
-                    <div className="wallet-balance-icon-unidentified">😴</div>
+                    <div className="wallet-balance-icon-unidentified">
+                      <span role="img" aria-label="napping"></span>😴
+                    </div>
                   )}
                   {balances.get(name)}
                 </div>
