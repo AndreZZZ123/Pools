@@ -211,7 +211,6 @@ async function BPTYield(pool: Pool, account: string, provider) {
   const BPTPrice = DAIPerBPT * DAIPrice.usd + ZZZPerBPT * ZZZPrice.usd;
 
   const weeklyROI = (rewardPerToken * BPTPrice * 100) / ZZZPrice.usd;
-  console.log(BPTPrice);
 
   return {
     weeklyROI: weeklyROI.toFixed(2),

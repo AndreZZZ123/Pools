@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useEffect } from "react";
-import { injected } from "../../misc/connectors";
+import { injected, ledger } from "../../misc/connectors";
 import MetaMask from "../../assets/metamask_icon.svg";
 import { useEagerConnect, useInactiveListener } from "../../misc/hooks";
 import Button from "../Button/Button";
@@ -9,11 +9,11 @@ import uniswapicon from "../../assets/uniswap_corn1.svg";
 import "./Connectors.scss";
 
 enum ConnectorNames {
-  Injected = "Unlock wallet"
+  Injected = "Unlock wallet",
   // Network = "Network",
   // WalletConnect = "WalletConnect",
   // WalletLink = "WalletLink",
-  // Ledger = "Ledger",
+  Ledger = "Ledger"
   // Trezor = "Trezor",
   // Frame = "Frame",
   // Authereum = "Authereum",
@@ -24,11 +24,11 @@ enum ConnectorNames {
 }
 
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
-  [ConnectorNames.Injected]: injected
+  [ConnectorNames.Injected]: injected,
   // [ConnectorNames.Network]: network,
   // [ConnectorNames.WalletConnect]: walletconnect,
   // [ConnectorNames.WalletLink]: walletlink,
-  // [ConnectorNames.Ledger]: ledger,
+  [ConnectorNames.Ledger]: ledger
   // [ConnectorNames.Trezor]: trezor,
   // [ConnectorNames.Frame]: frame,
   // [ConnectorNames.Authereum]: authereum,
