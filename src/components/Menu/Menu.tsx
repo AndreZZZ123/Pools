@@ -10,17 +10,11 @@ type Props = {
   currentTheme: string;
 };
 
-function Menu({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
+function Menu({ setShowWallet }: Props) {
   const { active } = useWeb3React();
   return (
     <div className="menu">
-      {active && (
-        <Wallet
-          setShowWallet={setShowWallet}
-          setCurrentTheme={setCurrentTheme}
-          currentTheme={currentTheme}
-        />
-      )}
+      {active && <Wallet setShowWallet={setShowWallet} />}
     </div>
   );
 }

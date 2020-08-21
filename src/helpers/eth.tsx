@@ -94,7 +94,7 @@ async function uniYield(
   pool: Pool,
   account: string,
   provider
-): Promise<{ weeklyROI: string; yearlyROI: string }> {
+): Promise<{ weeklyROI: string; yearlyROI: string; rewardPerToken: number }> {
   const POOL_B = new ethers.Contract(pool.address, pool.abi, provider);
   const ZZZ_TOKEN = new ethers.Contract(
     tokens.ZZZ.address,
@@ -139,6 +139,7 @@ async function uniYield(
   );
 
   return {
+    rewardPerToken,
     weeklyROI,
     yearlyROI: (parseFloat(weeklyROI) * 52).toFixed(2)
   };
@@ -213,6 +214,7 @@ async function BPTYield(pool: Pool, account: string, provider) {
   const weeklyROI = (rewardPerToken * BPTPrice * 100) / ZZZPrice.usd;
 
   return {
+    rewardPerToken,
     weeklyROI: weeklyROI.toFixed(2),
     yearlyROI: (weeklyROI * 52).toFixed(2)
   };

@@ -1,22 +1,19 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react";
+import { useEagerConnect, useInactiveListener } from "./misc/hooks";
 import Greeting from "./components/Greeting/Greeting";
 import Connectors from "./components/Connectors/Connectors";
 import Products from "./components/Products/Products";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 import MenuIcon from "./components/SVG/MenuIcon";
-import Modal from "react-modal";
 import Button from "./components/Button/Button";
 import uniswapicon from "./assets/uniswap_corn1.svg";
 import Prices from "./stores/prices";
 
-import "./App.scss";
-import { useEagerConnect, useInactiveListener } from "./misc/hooks";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
-Modal.setAppElement("#root");
+import "./App.scss";
 
 function App() {
   const theme = localStorage.getItem("zzz-finance-theme");
@@ -28,8 +25,7 @@ function App() {
     setCurrentThemeLocal(theme);
     localStorage.setItem("zzz-finance-theme", theme);
   }
-  Prices.setProvider(library);
-  Prices.fetchPrices();
+
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
 
@@ -37,8 +33,11 @@ function App() {
   useInactiveListener(!triedEager);
 
   useEffect(() => {
-    Prices.fetchPrices();
-  }, []);
+    if (account && library) {
+      Prices.fetchPrices(library);
+      Prices.fetchBalances(account, library);
+    }
+  }, [account, library]);
 
   return (
     <div id="app-root">
@@ -89,4 +88,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

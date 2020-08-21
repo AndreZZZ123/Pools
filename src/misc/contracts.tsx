@@ -47,7 +47,7 @@ export const pools: Pool[] = [
     reward: tokens.ZZZETHUNI,
     poolIcon: "😴",
     abi: require("./abi/zzz_uni_pool_abi.json"),
-    info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward.",
+    info: "Stake ZZZ for ZZZ/ETH UNI LP token reward.",
     buyAssetFrom:
       "https://beta.uniswap.info/pair/0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a"
   }

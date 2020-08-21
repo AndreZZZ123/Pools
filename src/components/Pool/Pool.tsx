@@ -24,6 +24,10 @@ type Props = {
   pool: IPool;
 };
 
+function getWPYusd(staked, tokenPrice, rewardPerToken) {
+  return rewardPerToken * staked * tokenPrice;
+}
+
 function Pool({ pool }: Props) {
   const { active, account, library } = useWeb3React();
   const [hasAllowance, setHasAllowance] = useState(false);
@@ -37,18 +41,20 @@ function Pool({ pool }: Props) {
 
   const signer = library.getSigner();
 
+  const tokenPrice = PricesStore.prices.get(pool.reward.name);
   const [yields, setYields] = useState<any>(null);
+
   let earnedUSD: null | number = null;
+  let weeklyROIUSD: null | number = null;
   if (earned > 0) {
-    const tokenPrice = PricesStore.prices.get(pool.reward.name);
     if (tokenPrice) {
-      console.log(earned, tokenPrice);
       earnedUSD = tokenPrice * earned;
+      if (yields && yields.weeklyROI && tokenPrice) {
+        weeklyROIUSD = getWPYusd(staked, tokenPrice, yields.rewardPerToken);
+      }
     }
   }
 
-  if (yields) {
-  }
   useEffect(() => {
     if (!!account) {
       checkAllowance(account, pool, library).then(setHasAllowance);
@@ -82,9 +88,13 @@ function Pool({ pool }: Props) {
           <div className="pool-yields">
             <div>
               WPY +<b>{yields && yields.weeklyROI}%</b>
+              {weeklyROIUSD && <span> = ${weeklyROIUSD.toFixed(2)}</span>}
             </div>
             <div>
               APY +<b>{yields && yields.yearlyROI}%</b>
+              {weeklyROIUSD && (
+                <span> = ${(weeklyROIUSD * 52).toFixed(2)}</span>
+              )}
             </div>
           </div>
         </Spinner>
