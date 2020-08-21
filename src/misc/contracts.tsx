@@ -12,7 +12,7 @@ export const tokens: { [tokenName: string]: Token } = {
     abi: require("./abi/erc20_abi.json")
   },
   ZZZETHUNI: {
-    name: "ZZZ/ETH UNI LP",
+    name: "ZZZETHUNI",
     address: "0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a",
     abi: require("./abi/erc20_abi.json")
   },

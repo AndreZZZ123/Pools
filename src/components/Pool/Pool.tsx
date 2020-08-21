@@ -40,8 +40,9 @@ function Pool({ pool }: Props) {
   const [yields, setYields] = useState<any>(null);
   let earnedUSD: null | number = null;
   if (earned > 0) {
-    const tokenPrice = PricesStore.prices.get(pool.token.name);
+    const tokenPrice = PricesStore.prices.get(pool.reward.name);
     if (tokenPrice) {
+      console.log(earned, tokenPrice);
       earnedUSD = tokenPrice * earned;
     }
   }
