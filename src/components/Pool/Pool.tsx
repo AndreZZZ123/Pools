@@ -24,8 +24,12 @@ type Props = {
   pool: IPool;
 };
 
-function getWPYusd(staked, tokenPrice, rewardPerToken) {
-  return rewardPerToken * staked * tokenPrice;
+function getWPYusd(poolName, staked, tokenPrice, rewardPerToken) {
+  if (poolName === "ZZZ") {
+    return rewardPerToken * staked * tokenPrice;
+  } else {
+    return null;
+  }
 }
 
 function Pool({ pool }: Props) {
@@ -50,7 +54,12 @@ function Pool({ pool }: Props) {
     if (tokenPrice) {
       earnedUSD = tokenPrice * earned;
       if (yields && yields.weeklyROI && tokenPrice) {
-        weeklyROIUSD = getWPYusd(staked, tokenPrice, yields.rewardPerToken);
+        weeklyROIUSD = getWPYusd(
+          pool.name,
+          staked,
+          tokenPrice,
+          yields.rewardPerToken
+        );
       }
     }
   }
