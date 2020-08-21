@@ -110,34 +110,49 @@ function Pool({ pool }: Props) {
             Approve token
           </Button>
         )}
-        <div className="stake">
-          {hasAllowance && (
-            <>
-              <BasicInput
-                onChange={e => setStakeAmount(e.target.value)}
-                className="zzz-amount"
-                type="number"
-                name={"Amount"}
-                value={stakeAmount}
-              />
+        {parseInt(maxAmount) > 0 ? (
+          <>
+            <div className="stake">
+              {hasAllowance && (
+                <>
+                  <BasicInput
+                    onChange={e => setStakeAmount(e.target.value)}
+                    className="zzz-amount"
+                    type="number"
+                    name={"Amount"}
+                    value={stakeAmount}
+                  />
 
-              {parseInt(maxAmount) > 0 && (
-                <Button
-                  onClick={() => setStakeAmount(maxAmount)}
-                  className={`max-button`}
-                >
-                  Max
-                </Button>
+                  {parseInt(maxAmount) > 0 && (
+                    <Button
+                      onClick={() => setStakeAmount(maxAmount)}
+                      className={`max-button`}
+                    >
+                      Max
+                    </Button>
+                  )}
+                </>
               )}
-            </>
-          )}
-        </div>
-        <Button
-          onClick={() => stake(pool, signer, stakeAmount)}
-          className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
-        >
-          Stake
-        </Button>
+            </div>
+            <Button
+              onClick={() => stake(pool, signer, stakeAmount)}
+              className={`staking-button ${!hasAllowance ? "disabled" : ""}`}
+            >
+              Stake
+            </Button>
+          </>
+        ) : (
+          <div className="cannot-stake">
+            <b>Nothing to stake!</b>
+            <a
+              href={pool.buyAssetFrom}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button>Get {pool.token.name}</Button>
+            </a>
+          </div>
+        )}
       </section>
     </div>
   );

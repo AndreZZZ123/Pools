@@ -6,6 +6,7 @@ export type Pool = {
   token: Token;
   reward: Token;
   info: string;
+  buyAssetFrom: string;
 };
 
 export type Token = {

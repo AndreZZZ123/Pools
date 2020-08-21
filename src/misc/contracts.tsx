@@ -36,7 +36,9 @@ export const pools: Pool[] = [
     reward: tokens.ZZZ,
     poolIcon: "🌱",
     abi: require("./abi/zzz_bpt_pool_abi.json"),
-    info: "Stake your BPT for ZZZ token reward."
+    info: "Stake your BPT for ZZZ token reward.",
+    buyAssetFrom:
+      "https://pools.balancer.exchange/#/pool/0x4f9dde745bf54f207dfc1fe34896d6752c63ad07/"
   },
   {
     name: "ZZZ",
@@ -45,7 +47,9 @@ export const pools: Pool[] = [
     reward: tokens.ZZZETHUNI,
     poolIcon: "😴",
     abi: require("./abi/zzz_uni_pool_abi.json"),
-    info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward."
+    info: "Stake your ZZZ for ZZZ/ETH UNI LP v2 token reward.",
+    buyAssetFrom:
+      "https://beta.uniswap.info/pair/0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a"
   }
 ];
 
