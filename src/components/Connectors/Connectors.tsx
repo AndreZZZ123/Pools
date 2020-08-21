@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useEffect } from "react";
-import { injected, walletconnect } from "../../misc/connectors";
+import { injected } from "../../misc/connectors";
 import MetaMask from "../../assets/metamask_icon.svg";
 import Button from "../Button/Button";
 import "./Connectors.scss";
