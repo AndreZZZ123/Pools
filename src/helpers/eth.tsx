@@ -47,8 +47,11 @@ export async function checkAllowance(address: string, pool: Pool, provider) {
     pool.token.abi,
     provider
   );
-
+  
   const allowance = await contract.allowance(address, pool.address);
+  console.log("checkign allowance for : ", address, pool.address)
+  console.log("allowance is",allowance)
+  console.log("-----")
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
 }
