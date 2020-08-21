@@ -1,3 +1,5 @@
+@import "../../main.scss";
+
 .connector {
   display: flex;
   flex-direction: row;
@@ -10,6 +12,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.connectors-title {
+  color: #eeeeee;
 }
 
 .metamask-icon {

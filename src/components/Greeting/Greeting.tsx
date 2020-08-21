@@ -6,9 +6,10 @@ import Button from "../Button/Button";
 import telegramicon from "../../assets/telegram_logo.webp";
 import forumsicon from "../../assets/forums_logo.png";
 import "./Greeting.scss";
+import Spinner from "../Spinner/Spinner";
 
 function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
-  const [currentPrice, setCurrentPrice] = useState<any>("checking price");
+  const [currentPrice, setCurrentPrice] = useState<any>(undefined);
   useEffect(() => {
     coingecko
       .getPricingFor(tokens.ZZZ.address, "USD")
@@ -51,7 +52,11 @@ function Greeting({ setCurrentTheme, currentTheme, ...rest }) {
 
       <h1 className="title">ZZZ.finance</h1>
       <h3>Sleep. Earn. Smile.</h3>
-      <h2 className="greeting-current-price">1 ZZZ = ${currentPrice.usd}</h2>
+      <Spinner condition={!!currentPrice}>
+        <h2 className="greeting-current-price">
+          1 ZZZ = ${currentPrice && currentPrice.usd}
+        </h2>
+      </Spinner>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
 import Button from "../Button/Button";
 import "./Pool.scss";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {
   pool: IPool;
@@ -61,17 +62,21 @@ function Pool({ pool }: Props) {
       </div>
       <section className="pool-content">
         <div className="pool-info">{pool.info}</div>
-        {loadingYield && <b>Loading yield info..</b>}
-        {yields && (
+        <Spinner
+          type="ThreeDots"
+          width={25}
+          height={25}
+          condition={!loadingYield}
+        >
           <div className="pool-yields">
             <div>
-              WPY +<b>{yields.weeklyROI}%</b>
+              WPY +<b>{yields && yields.weeklyROI}%</b>
             </div>
             <div>
-              APY +<b>{yields.yearlyROI}%</b>
+              APY +<b>{yields && yields.yearlyROI}%</b>
             </div>
           </div>
-        )}
+        </Spinner>
         <div className="pool-extra">
           <h4 className="pool-extra-title">
             Staking <b>{staked}</b> {pool.token.name} of{" "}

@@ -11,6 +11,7 @@ import { getERC20balance, getBPTPrice } from "../../helpers/eth";
 import "./Wallet.scss";
 import { usePrices } from "../../hooks/usePrices";
 import WalletList from "../WalletList/WalletList";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {
   setShowWallet: Function;
@@ -23,7 +24,7 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
   const zzzPrice = usePrices("ZZZ");
   const wethPrice = usePrices("WETH");
 
-  const [BPTPrice, setBPTPrice] = useState("0");
+  const [BPTPrice, setBPTPrice] = useState<any>(null);
 
   const [balance, setBalance] = useState(0);
   const [ZZZBalance, setZZZBalance] = useState<any>(0);
@@ -83,7 +84,14 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             <img src={ethicon} className="wallet-balance-icon" alt="ethereum" />
             {balance ? `${parseFloat(formatEther(balance)).toFixed(4)}` : 0}
           </div>
-          <div className="currency-usd-value">1 = ${wethPrice.usd}</div>
+          <Spinner
+            width={20}
+            height={20}
+            type="ThreeDots"
+            condition={!!wethPrice.usd}
+          >
+            <div className="currency-usd-value">1 = ${wethPrice.usd}</div>
+          </Spinner>
         </WalletList.Currency>
         <WalletList.Currency>
           <div className="currency-with-icon">
@@ -94,7 +102,14 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             />
             {ZZZBalance ? ZZZBalance : 0}
           </div>
-          <div className="currency-usd-value">1 = ${zzzPrice.usd}</div>
+          <Spinner
+            width={10}
+            height={10}
+            type="ThreeDots"
+            condition={!!zzzPrice.usd}
+          >
+            <div className="currency-usd-value">1 = ${zzzPrice.usd}</div>
+          </Spinner>
         </WalletList.Currency>
         <WalletList.Currency>
           <div className="currency-with-icon">
@@ -105,7 +120,14 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             />
             {BPTBalance ? BPTBalance : 0}
           </div>
-          <div className="currency-usd-value">1 = ${BPTPrice}</div>
+          <Spinner
+            width={10}
+            height={10}
+            type="ThreeDots"
+            condition={!!BPTPrice}
+          >
+            <div className="currency-usd-value">1 = ${BPTPrice}</div>
+          </Spinner>
         </WalletList.Currency>
       </WalletList>
       <div className="menu-buttons">

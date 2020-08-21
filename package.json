@@ -17,9 +17,12 @@
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-loader-spinner": "^3.1.14",
+    "react-modal": "^3.11.2",
     "react-scripts": "3.4.3",
     "typescript": "~3.7.2",
-    "web3": "^1.2.11"
+    "web3": "^1.2.11",
+    "web3modal": "^1.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

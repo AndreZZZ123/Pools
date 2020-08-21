@@ -3,7 +3,7 @@ import coingecko from "../helpers/coingecko";
 import { tokens } from "../misc/contracts";
 
 export function usePrices(token: string) {
-  const [currentPrice, setCurrentPrice] = useState<any>("checking price");
+  const [currentPrice, setCurrentPrice] = useState<any>({});
   const address = tokens[token].address;
 
   useEffect(() => {

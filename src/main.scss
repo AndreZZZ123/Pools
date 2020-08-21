@@ -13,7 +13,7 @@ $themes: (
     InfoboxContentBackground: #6a0572,
     infoBoxTitleBackground: rgba(234, 5, 153, 0.4),
     poolTitleBackgroundColor: #ea0599,
-    poolContentBackgroundColor: #9a0f98,
+    poolContentBackgroundColor: #9a0f98
   ),
   other: (
     backgroundColor: #222831,
@@ -21,13 +21,13 @@ $themes: (
     buttonTextColor: #eeeeee,
     buttonTextTransform: uppercase,
     buttonTextHoverColor: #ddd,
-    buttonColor: #fd7014,
+    buttonColor: #ff6600,
     buttonBorder: 2px solid #393e46,
     InfoboxContentBackground: #393e46,
     infoBoxTitleBackground: #fd7014,
     poolTitleBackgroundColor: #eeeeee,
-    poolContentBackgroundColor: #393e46,
-  ),
+    poolContentBackgroundColor: #393e46
+  )
 );
 
 /*
@@ -44,7 +44,7 @@ $themes: (
         $theme-map: map-merge(
           $theme-map,
           (
-            $key: $value,
+            $key: $value
           )
         ) !global;
       }
