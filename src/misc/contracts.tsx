@@ -74,7 +74,7 @@ export const pools: Pool[] = [
     address: "0xab6a0667ccf1d0daf1db223e0695de49aa4d1bb1",
     token: devTokens.ZZZ,
     reward: devTokens.NAPS,
-    poolIcon: "D",
+    poolIcon: "🔮",
     abi: require("./abi/multiplier_pool_abi.json"),
     info: "Stake ZZZ for NAPS",
     buyAssetFrom: "",
