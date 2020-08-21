@@ -40,7 +40,7 @@ export const pools: Pool[] = [
     address: "0x2d0b69300c4637625681a19d840e8e9c1ebe4126",
     token: tokens.BPT,
     reward: tokens.ZZZ,
-    poolIcon: "🌱",
+    poolIcon: "🛌",
     abi: require("./abi/zzz_bpt_pool_abi.json"),
     info: "Stake your BPT for ZZZ token reward.",
     buyAssetFrom:
