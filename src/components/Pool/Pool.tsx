@@ -200,7 +200,7 @@ function Pool({ pool }: Props) {
             })}
           </div>
         )}
-        {parseInt(maxAmount) > 0 ? (
+        {parseInt(maxAmount) > 0 && hasAllowance ? (
           <>
             <div className="stake">
               {hasAllowance && (
