@@ -44,6 +44,10 @@
   border: 2px solid black;
 }
 
+.wallet-balance-icon-unidentified {
+  margin-right: $default-spacing;
+}
+
 @media screen and (max-width: 700px) {
   .menu-buttons {
     flex-direction: column;
