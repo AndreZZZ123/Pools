@@ -31,7 +31,7 @@ function Wallet({ setShowWallet }: Props) {
             : ""}
         </WalletList.Account>
         {ListedTokens.map(({ name, icon }) => (
-          <WalletList.Currency>
+          <WalletList.Currency key={`wallet-currency-${name}`}>
             <div className="currency-with-icon">
               <img src={icon} className="wallet-balance-icon" alt={name} />
               {balances.get(name)}
