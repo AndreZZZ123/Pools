@@ -41,7 +41,17 @@ function Wallet({ setShowWallet }: Props) {
             balances.get(name) && (
               <WalletList.Currency key={`wallet-currency-${name}`}>
                 <div className="currency-with-icon">
-                  <img src={icon} className="wallet-balance-icon" alt={name} />
+                  {icon ? (
+                    <img
+                      src={icon}
+                      className="wallet-balance-icon"
+                      alt={name}
+                    />
+                  ) : (
+                    <div className="wallet-balance-icon-unidentified">
+                      <span role="img" aria-label="napping"></span>😴
+                    </div>
+                  )}
                   {balances.get(name)}
                 </div>
                 <Spinner

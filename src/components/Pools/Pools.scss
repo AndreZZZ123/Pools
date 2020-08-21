@@ -18,6 +18,12 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 1440px) {
+  .pools-container {
+    flex-flow: row wrap;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .pools-container {
     flex-direction: column;
