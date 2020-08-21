@@ -168,16 +168,17 @@ function Pool({ pool }: Props) {
             Approve token
           </Button>
         )}
-        {pool.boostAvailable && !hasBoostAllowance && (
+        {pool.boostAvailable && !hasBoostAllowance && hasAllowance && (
           <Button onClick={() => getBoostAllowance(account, pool, signer)}>
             Approve boost
           </Button>
         )}
-        {pool.boostAvailable && (
+        {pool.boostAvailable && hasBoostAllowance && (
           <div className="boost-buttons">
             Boost multiplier <b>{(boostMultiplier - 1) * 100}%</b>
             {boostLevels.map(level => {
               const isActive = level === boostLevel;
+              if (level < boostLevel) return null;
               return (
                 <Button
                   className={`boost-button ${isActive ? "active" : ""} ${
@@ -231,16 +232,18 @@ function Pool({ pool }: Props) {
             </Button>
           </>
         ) : (
-          <div className="cannot-stake">
-            <b>Nothing to stake!</b>
-            <a
-              href={pool.buyAssetFrom}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button>Get {pool.token.name}</Button>
-            </a>
-          </div>
+          hasAllowance && (
+            <div className="cannot-stake">
+              <b>Nothing to stake!</b>
+              <a
+                href={pool.buyAssetFrom}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button>Get {pool.token.name}</Button>
+              </a>
+            </div>
+          )
         )}
       </section>
     </div>
