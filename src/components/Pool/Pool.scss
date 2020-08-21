@@ -119,6 +119,8 @@ h2 {
 @media screen and (max-width: 1000px) {
   .pool {
     padding: 0;
+    padding-bottom: $default-spacing;
+    margin-top: $default-spacing;
   }
 }
 @media screen and (max-width: 370px) {
