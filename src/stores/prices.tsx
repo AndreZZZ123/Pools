@@ -21,6 +21,10 @@ class Prices {
       let res = parseFloat(val).toFixed(4) || 0.0;
       this.balances.set("ZZZETHUNI", res);
     });
+    getERC20balance(account, tokens.NAPS, provider).then(val => {
+      let res = parseFloat(val).toFixed(4) || 0.0;
+      this.balances.set("NAPS", res);
+    });
 
     provider.getBalance(account).then((balance: any) => {
       const etherAmount = formatEther(balance);

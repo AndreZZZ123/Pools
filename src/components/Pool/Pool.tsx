@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import {
   checkAllowance,
+  checkBoostAllowance,
   getAllowance,
   getCurrentTotalStake,
   getERC20balance,
@@ -11,7 +12,12 @@ import {
   getYieldsFor,
   stake,
   claim,
-  exit
+  exit,
+  getBoostAllowance,
+  boost,
+  getBoostLevel,
+  getBoostMultiplier,
+  getBoostCosts
 } from "../../helpers/eth";
 import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
@@ -24,6 +30,8 @@ type Props = {
   pool: IPool;
 };
 
+const boostLevels = [1, 2, 3];
+
 function getWPYusd(poolName, staked, tokenPrice, rewardPerToken) {
   if (poolName === "ZZZ") {
     return rewardPerToken * staked * tokenPrice;
@@ -35,12 +43,16 @@ function getWPYusd(poolName, staked, tokenPrice, rewardPerToken) {
 function Pool({ pool }: Props) {
   const { active, account, library } = useWeb3React();
   const [hasAllowance, setHasAllowance] = useState(false);
+  const [hasBoostAllowance, setHasBoostAllowance] = useState(false);
+  const [boostLevel, setBoostLevel] = useState(0);
+  const [boostMultiplier, setBoostMultiplier] = useState(0);
   const [earned, setEarned] = useState(0);
   const [staked, setStaked] = useState(0);
   const [totalStake, setTotalStake] = useState(0);
   const [stakeAmount, setStakeAmount] = useState("0");
   const [maxAmount, setMaxAmount] = useState("0");
   const [loadingYield, setLoadingYield] = useState(true);
+  const [boostCosts, setBoostCosts] = useState<any[]>([]);
   const userPercentageOfTotal = staked > 0 ? (staked / totalStake) * 100 : 0;
 
   const signer = library.getSigner();
@@ -75,6 +87,12 @@ function Pool({ pool }: Props) {
         setYields(res);
         setLoadingYield(false);
       });
+      if (pool.boostAvailable) {
+        checkBoostAllowance(account, pool, library).then(setHasBoostAllowance);
+        getBoostLevel(account, pool, library).then(setBoostLevel);
+        getBoostMultiplier(account, pool, library).then(setBoostMultiplier);
+        getBoostCosts(pool, library).then(setBoostCosts);
+      }
     }
   }, [active, library, account, pool]);
 
@@ -94,18 +112,20 @@ function Pool({ pool }: Props) {
           height={25}
           condition={!loadingYield}
         >
-          <div className="pool-yields">
-            <div>
-              WPY +<b>{yields && yields.weeklyROI}%</b>
-              {weeklyROIUSD && <span> = ${weeklyROIUSD.toFixed(2)}</span>}
+          {yields && (
+            <div className="pool-yields">
+              <div>
+                WPY +<b>{yields && yields.weeklyROI}%</b>
+                {weeklyROIUSD && <span> = ${weeklyROIUSD.toFixed(2)}</span>}
+              </div>
+              <div>
+                APY +<b>{yields && yields.yearlyROI}%</b>
+                {weeklyROIUSD && (
+                  <span> = ${(weeklyROIUSD * 52).toFixed(2)}</span>
+                )}
+              </div>
             </div>
-            <div>
-              APY +<b>{yields && yields.yearlyROI}%</b>
-              {weeklyROIUSD && (
-                <span> = ${(weeklyROIUSD * 52).toFixed(2)}</span>
-              )}
-            </div>
-          </div>
+          )}
         </Spinner>
         <div className="pool-extra">
           <h4 className="pool-extra-title">
@@ -147,6 +167,37 @@ function Pool({ pool }: Props) {
           <Button onClick={() => getAllowance(account, pool, signer)}>
             Approve token
           </Button>
+        )}
+        {pool.boostAvailable && !hasBoostAllowance && (
+          <Button onClick={() => getBoostAllowance(account, pool, signer)}>
+            Approve boost
+          </Button>
+        )}
+        {pool.boostAvailable && (
+          <div className="boost-buttons">
+            Boost multiplier <b>{(boostMultiplier - 1) * 100}%</b>
+            {boostLevels.map(level => {
+              const isActive = level === boostLevel;
+              return (
+                <Button
+                  className={`boost-button ${isActive ? "active" : ""} ${
+                    boostLevel > level ? " disabled" : ""
+                  }`}
+                  onClick={() => boost(level, pool, signer)}
+                >
+                  Level {level} <br />
+                  <Spinner
+                    type="ThreeDots"
+                    width={25}
+                    height={25}
+                    condition={boostCosts.length}
+                  >
+                    {boostCosts[level - 1]} NAPS
+                  </Spinner>
+                </Button>
+              );
+            })}
+          </div>
         )}
         {parseInt(maxAmount) > 0 ? (
           <>

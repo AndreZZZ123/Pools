@@ -25,6 +25,24 @@ export const tokens: { [tokenName: string]: Token } = {
     name: "DAI",
     address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
     abi: require("./abi/erc20_abi.json")
+  },
+  NAPS: {
+    name: "NAPS",
+    address: "0x9ebcf5928e1903f490707b24404bec32d85b5503",
+    abi: require("./abi/erc20_abi.json")
+  }
+};
+
+export const devTokens: { [tokenName: string]: Token } = {
+  ZZZ: {
+    name: "ZZZ",
+    address: "0x9f5d2da0d3cf4c710dc3efe6e3a790fc363a4ec8",
+    abi: require("./abi/erc20_abi.json")
+  },
+  NAPS: {
+    name: "NAPS",
+    address: "0x9ebcf5928e1903f490707b24404bec32d85b5503",
+    abi: require("./abi/erc20_abi.json")
   }
 };
 
@@ -50,6 +68,17 @@ export const pools: Pool[] = [
     info: "Stake ZZZ for ZZZ/ETH UNI LP token reward.",
     buyAssetFrom:
       "https://beta.uniswap.info/pair/0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a"
+  },
+  {
+    name: "NAPS",
+    address: "0xab6a0667ccf1d0daf1db223e0695de49aa4d1bb1",
+    token: devTokens.ZZZ,
+    reward: devTokens.NAPS,
+    poolIcon: "D",
+    abi: require("./abi/multiplier_pool_abi.json"),
+    info: "Stake ZZZ for NAPS",
+    buyAssetFrom: "",
+    boostAvailable: true
   }
 ];
 

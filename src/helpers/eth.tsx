@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { formatEther, parseEther } from "ethers/lib/utils";
-import { pools, otherPools, tokens } from "../misc/contracts";
+import { pools, otherPools, tokens, devTokens } from "../misc/contracts";
 import { Pool, Token } from "../types";
 import coingecko from "./coingecko";
 
@@ -51,6 +51,61 @@ export async function checkAllowance(address: string, pool: Pool, provider) {
   const allowance = await contract.allowance(address, pool.address);
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
+}
+export async function getBoostCosts(pool, provider) {
+  const results: any[] = [];
+  const contract = new ethers.Contract(pool.address, pool.abi, provider);
+  const level1Cost = formatEther(await contract.calculateCost(1));
+  const level2Cost = formatEther(await contract.calculateCost(2));
+  const level3Cost = formatEther(await contract.calculateCost(3));
+  results.push(level1Cost);
+  results.push(level2Cost);
+  results.push(level3Cost);
+  console.log(results);
+  return results;
+}
+export async function boost(level, pool, signer) {
+  const contract = new ethers.Contract(pool.address, pool.abi, signer);
+  await contract.purchase(level);
+}
+
+export async function getBoostLevel(address, pool, provider) {
+  const contract = new ethers.Contract(pool.address, pool.abi, provider);
+  const level = await contract.NAPSlevel(address);
+  return parseInt(level);
+}
+
+export async function checkBoostAllowance(
+  address: string,
+  pool: Pool,
+  provider
+) {
+  const contract = new ethers.Contract(
+    devTokens.NAPS.address,
+    devTokens.NAPS.abi,
+    provider
+  );
+
+  const allowance = await contract.allowance(address, pool.address);
+  const dec = formatEther(allowance);
+  return parseFloat(dec) > 0;
+}
+
+export async function getBoostMultiplier(address, pool: Pool, provider) {
+  const contract = new ethers.Contract(pool.address, pool.abi, provider);
+
+  const multiplier = await contract.getTotalMultiplier(address);
+  return parseFloat(formatEther(multiplier));
+}
+
+export async function getBoostAllowance(address, pool: Pool, signer) {
+  const contract = new ethers.Contract(
+    devTokens.NAPS.address,
+    devTokens.NAPS.abi,
+    signer
+  );
+  let wei = ethers.utils.parseEther("999999999");
+  await contract.approve(pool.address, wei);
 }
 
 export async function getAllowance(address, pool: Pool, signer) {

@@ -75,7 +75,7 @@ h2 {
 .stake {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 }
 
@@ -106,6 +106,14 @@ h2 {
 
 .cannot-stake {
   margin-bottom: $default-spacing;
+}
+
+.boost-button.active {
+  background-color: green;
+}
+
+.boost-enabled {
+  margin-left: $small-spacing;
 }
 
 @media screen and (max-width: 1000px) {

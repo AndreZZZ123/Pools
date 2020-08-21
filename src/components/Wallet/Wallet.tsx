@@ -36,22 +36,27 @@ function Wallet({ setShowWallet }: Props) {
             </div>
           )}
         </WalletList.Account>
-        {ListedTokens.map(({ name, icon }) => (
-          <WalletList.Currency key={`wallet-currency-${name}`}>
-            <div className="currency-with-icon">
-              <img src={icon} className="wallet-balance-icon" alt={name} />
-              {balances.get(name)}
-            </div>
-            <Spinner
-              width={20}
-              height={20}
-              type="ThreeDots"
-              condition={prices.get(name)}
-            >
-              <div className="currency-usd-value">1 = ${prices.get(name)}</div>
-            </Spinner>
-          </WalletList.Currency>
-        ))}
+        {ListedTokens.map(
+          ({ name, icon }) =>
+            balances.get(name) && (
+              <WalletList.Currency key={`wallet-currency-${name}`}>
+                <div className="currency-with-icon">
+                  <img src={icon} className="wallet-balance-icon" alt={name} />
+                  {balances.get(name) || "Fetching.."}
+                </div>
+                <Spinner
+                  width={20}
+                  height={20}
+                  type="ThreeDots"
+                  condition={prices.get(name)}
+                >
+                  <div className="currency-usd-value">
+                    1 = ${prices.get(name)}
+                  </div>
+                </Spinner>
+              </WalletList.Currency>
+            )
+        )}
       </WalletList>
       <div className="menu-buttons">
         <a
