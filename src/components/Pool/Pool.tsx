@@ -1,5 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react";
 import {
   checkAllowance,
   getAllowance,
@@ -15,6 +16,7 @@ import {
 import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
 import Button from "../Button/Button";
+import PricesStore from "../../stores/prices";
 import "./Pool.scss";
 import Spinner from "../Spinner/Spinner";
 
@@ -31,13 +33,21 @@ function Pool({ pool }: Props) {
   const [stakeAmount, setStakeAmount] = useState("0");
   const [maxAmount, setMaxAmount] = useState("0");
   const [loadingYield, setLoadingYield] = useState(true);
-
   const userPercentageOfTotal = staked > 0 ? (staked / totalStake) * 100 : 0;
 
   const signer = library.getSigner();
 
   const [yields, setYields] = useState<any>(null);
+  let earnedUSD: null | number = null;
+  if (earned > 0) {
+    const tokenPrice = PricesStore.prices.get(pool.token.name);
+    if (tokenPrice) {
+      earnedUSD = tokenPrice * earned;
+    }
+  }
 
+  if (yields) {
+  }
   useEffect(() => {
     if (!!account) {
       checkAllowance(account, pool, library).then(setHasAllowance);
@@ -84,12 +94,15 @@ function Pool({ pool }: Props) {
             <b>{userPercentageOfTotal.toFixed(4)}%</b> of total
           </h4>
           <h3 className="pool-extra-title">
-            Rewards{" "}
+            Rewards
             <span role="img" aria-label="star">
               ⭐️
             </span>{" "}
             <b>{earned.toFixed(4)}</b> {pool.reward.name}
           </h3>
+          <Spinner condition={!!earnedUSD}>
+            <div className="earned-usd">${earnedUSD?.toFixed(2)}</div>
+          </Spinner>
           {staked > 0 && (
             <div className="claim-exit-buttons">
               <Button
@@ -166,4 +179,4 @@ function Pool({ pool }: Props) {
 Pool.Title = ({ children }) => <div className="pool-title">{children}</div>;
 Pool.Content = ({ children }) => <div className="pool-content">{children}</div>;
 
-export default Pool;
+export default observer(Pool);

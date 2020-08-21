@@ -17,7 +17,15 @@ function Spinner({
   type = "Puff"
 }) {
   if (!condition) {
-    return <Loader type={type} color="#00BFFF" height={height} width={width} />;
+    return (
+      <Loader
+        type={type}
+        color="#00BFFF"
+        height={height}
+        width={width}
+        timeout={2500}
+      />
+    );
   }
   if (condition) {
     return children;

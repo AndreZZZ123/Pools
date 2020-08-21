@@ -4,14 +4,16 @@ import { formatEther } from "ethers/lib/utils";
 import { tokens } from "../../misc/contracts";
 import Button from "../Button/Button";
 import uniswapicon from "../../assets/uniswap_corn1.svg";
+import uniswap_token_icon from "../../assets/uniswap_logo.png";
 import zzztokenicon from "../../assets/zzz_token_logo.png";
 import ethicon from "../../assets/eth_icon.png";
 import bpticon from "../../assets/balancer_icon.webp";
-import { getERC20balance, getBPTPrice } from "../../helpers/eth";
+import { getERC20balance } from "../../helpers/eth";
 import "./Wallet.scss";
-import { usePrices } from "../../hooks/usePrices";
 import WalletList from "../WalletList/WalletList";
 import Spinner from "../Spinner/Spinner";
+import PriceStore from "../../stores/prices";
+import { observer } from "mobx-react";
 
 type Props = {
   setShowWallet: Function;
@@ -21,28 +23,18 @@ type Props = {
 
 function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
   const { account, library, chainId, deactivate } = useWeb3React();
-  const zzzPrice = usePrices("ZZZ");
-  const wethPrice = usePrices("WETH");
-
-  const [BPTPrice, setBPTPrice] = useState<any>(null);
+  const prices = PriceStore.prices;
 
   const [balance, setBalance] = useState(0);
   const [ZZZBalance, setZZZBalance] = useState<any>(0);
   const [BPTBalance, setBPTBalance] = useState<any>(0);
+  const [UNIBalance, setUNIbalance] = useState<any>(0);
 
   useEffect((): any => {
     if (!!account && !!library) {
-      getERC20balance(account, tokens.ZZZ, library).then(res => {
-        if (res) {
-          setZZZBalance(res);
-        }
-      });
-
-      getERC20balance(account, tokens.BPT, library).then(res => {
-        if (res) {
-          setBPTBalance(res);
-        }
-      });
+      getERC20balance(account, tokens.ZZZ, library).then(setZZZBalance);
+      getERC20balance(account, tokens.BPT, library).then(setBPTBalance);
+      getERC20balance(account, tokens.ZZZETHUNI, library).then(setUNIbalance);
 
       let stale = false;
       library
@@ -57,7 +49,6 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             setBalance(0);
           }
         });
-      getBPTPrice(library).then(setBPTPrice);
       return () => {
         stale = true;
         setBalance(0);
@@ -88,9 +79,9 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             width={20}
             height={20}
             type="ThreeDots"
-            condition={!!wethPrice.usd}
+            condition={prices.size}
           >
-            <div className="currency-usd-value">1 = ${wethPrice.usd}</div>
+            <div className="currency-usd-value">1 = ${prices.get("WETH")}</div>
           </Spinner>
         </WalletList.Currency>
         <WalletList.Currency>
@@ -103,12 +94,32 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             {ZZZBalance ? ZZZBalance : 0}
           </div>
           <Spinner
-            width={10}
-            height={10}
+            width={20}
+            height={20}
             type="ThreeDots"
-            condition={!!zzzPrice.usd}
+            condition={prices.size}
           >
-            <div className="currency-usd-value">1 = ${zzzPrice.usd}</div>
+            <div className="currency-usd-value">1 = ${prices.get("ZZZ")}</div>
+          </Spinner>
+        </WalletList.Currency>
+        <WalletList.Currency>
+          <div className="currency-with-icon">
+            <img
+              src={uniswap_token_icon}
+              className="wallet-balance-icon"
+              alt="zzz token"
+            />
+            {UNIBalance ? UNIBalance : 0}
+          </div>
+          <Spinner
+            width={20}
+            height={20}
+            type="ThreeDots"
+            condition={prices.get("ZZZETHUNI")}
+          >
+            <div className="currency-usd-value">
+              1 = ${prices.get("ZZZETHUNI")}
+            </div>
           </Spinner>
         </WalletList.Currency>
         <WalletList.Currency>
@@ -121,12 +132,12 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
             {BPTBalance ? BPTBalance : 0}
           </div>
           <Spinner
-            width={10}
-            height={10}
+            width={20}
+            height={20}
             type="ThreeDots"
-            condition={!!BPTPrice}
+            condition={prices.get("BPT")}
           >
-            <div className="currency-usd-value">1 = ${BPTPrice}</div>
+            <div className="currency-usd-value">1 = ${prices.get("BPT")}</div>
           </Spinner>
         </WalletList.Currency>
       </WalletList>
@@ -154,4 +165,4 @@ function Wallet({ setShowWallet, setCurrentTheme, currentTheme }: Props) {
   );
 }
 
-export default Wallet;
+export default observer(Wallet);

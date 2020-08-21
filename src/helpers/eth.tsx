@@ -234,8 +234,29 @@ export async function getBPTPrice(provider) {
   const DAIPerBPT = totalDAIAmount / totalBPTAmount;
   const DAIPrice = await coingecko.getPricingFor(tokens.DAI.address, "USD");
   const BPTPrice = DAIPerBPT * DAIPrice.usd + ZZZPerBPT * ZZZPrice.usd;
+  return BPTPrice;
+}
 
-  return BPTPrice.toFixed(2);
+export async function getUNIPrice(provider) {
+  const ZZZ_ETH_UNI_POOL = new ethers.Contract(
+    tokens.ZZZETHUNI.address,
+    require("../misc/abi/uniswap_pool_abi.json"),
+    provider
+  );
+
+  const WETH_TOKEN = new ethers.Contract(
+    tokens.WETH.address,
+    tokens.WETH.abi,
+    provider
+  );
+
+  const totalWethInUNI =
+    (await WETH_TOKEN.balanceOf(tokens.ZZZETHUNI.address)) / 1e18;
+  const totalUniSupply = (await ZZZ_ETH_UNI_POOL.totalSupply()) / 1e18;
+  const ethPrice = await coingecko.getPricingFor(tokens.WETH.address, "USD");
+  const totalpoolValue = totalWethInUNI * ethPrice.usd * 2;
+  const UNIPrice = totalpoolValue / totalUniSupply;
+  return UNIPrice;
 }
 
 // _getERC20Balance = async (web3, asset, account, callback) => {

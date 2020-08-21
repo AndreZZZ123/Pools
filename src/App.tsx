@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Greeting from "./components/Greeting/Greeting";
 import Connectors from "./components/Connectors/Connectors";
 import Products from "./components/Products/Products";
@@ -9,6 +9,7 @@ import MenuIcon from "./components/SVG/MenuIcon";
 import Modal from "react-modal";
 import Button from "./components/Button/Button";
 import uniswapicon from "./assets/uniswap_corn1.svg";
+import Prices from "./stores/prices";
 
 import "./App.scss";
 import { useEagerConnect, useInactiveListener } from "./misc/hooks";
@@ -18,15 +19,26 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 Modal.setAppElement("#root");
 
 function App() {
-  const { account, active } = useWeb3React();
-  const [currentTheme, setCurrentTheme] = useState("other");
+  const theme = localStorage.getItem("zzz-finance-theme");
+  const { account, active, library } = useWeb3React();
+  const [currentTheme, setCurrentThemeLocal] = useState(theme || "other");
   const [showWallet, setShowWallet] = useState(true);
 
+  function setCurrentTheme(theme) {
+    setCurrentThemeLocal(theme);
+    localStorage.setItem("zzz-finance-theme", theme);
+  }
+  Prices.setProvider(library);
+  Prices.fetchPrices();
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
 
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager);
+
+  useEffect(() => {
+    Prices.fetchPrices();
+  }, []);
 
   return (
     <div id="app-root">

@@ -7,7 +7,7 @@ import "./Pools.scss";
 function Pools() {
   return (
     <div className="pools">
-      <img src={poolicon} width="312" className="pool-icon" alt="pool" />
+      <img src={poolicon} width="280" className="pool-icon" alt="pool" />
       <div className="pools-container">
         {pools.map(pool => (
           <Pool pool={pool} key={pool.name} />

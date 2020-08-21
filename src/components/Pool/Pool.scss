@@ -34,7 +34,7 @@ h2 {
 }
 
 .pool-icon {
-  font-size: 60px;
+  font-size: 45px;
 }
 
 .pool-content {
@@ -69,7 +69,7 @@ h2 {
 }
 
 .pool-title {
-  font-size: $huge-font-size;
+  font-size: $large-font-size;
 }
 
 .stake {
@@ -77,6 +77,17 @@ h2 {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+}
+
+.earned-usd {
+  font-size: $large-font-size;
+  font-weight: bold;
+  color: greenyellow;
+  -webkit-box-shadow: 3px 10px 50px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 10px 50px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 10px 50px -4px rgba(0, 0, 0, 0.75);
+  border-radius: 50px;
+  padding: 12px;
 }
 
 .max-button {
