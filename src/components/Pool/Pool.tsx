@@ -175,7 +175,7 @@ function Pool({ pool }: Props) {
         )}
         {pool.boostAvailable && hasBoostAllowance && (
           <div className="boost-buttons">
-            Boost multiplier <b>{(boostMultiplier - 1) * 100}%</b>
+            Boost multiplier <b>{((boostMultiplier - 1) * 100).toFixed(0)}%</b>
             {boostLevels.map(level => {
               const isActive = level === boostLevel;
               if (level < boostLevel) return null;
@@ -185,6 +185,7 @@ function Pool({ pool }: Props) {
                     boostLevel > level ? " disabled" : ""
                   }`}
                   onClick={() => boost(level, pool, signer)}
+                  key={`boost-level${level}`}
                 >
                   Level {level} <br />
                   <Spinner
