@@ -16,6 +16,12 @@ export const tokens: { [tokenName: string]: Token } = {
     address: "0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a",
     abi: require("./abi/erc20_abi.json")
   },
+  ZZZNAPUNI: {
+    name: "ZZZNAPUNI",
+    // Change this
+    address: "0x0DE0322D3ac0d5002e2bc9c3a188728728D90799",
+    abi: require("./abi/erc20_abi.json")
+  },
   WETH: {
     name: "WETH",
     address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -61,8 +67,8 @@ export const pools: Pool[] = [
   {
     name: "NAPS",
     uiName: "Snoozer",
-    address: "0x05d0c213386e25BFB3f3872FCE6c7c7998A3E54C",
-    token: tokens.ZZZ,
+    address: "0x8EC7466a5025aC26368bD8b8Cfd2571F9bC0DC6F",
+    token: tokens.ZZZNAPUNI,
     reward: tokens.NAPS,
     poolIcon: "💤",
     abi: require("./abi/multiplier_pool_abi.json"),
@@ -73,7 +79,7 @@ export const pools: Pool[] = [
   {
     name: "NAPS2",
     uiName: "Napper",
-    address: "0x8EC7466a5025aC26368bD8b8Cfd2571F9bC0DC6F",
+    address: "0x05d0c213386e25BFB3f3872FCE6c7c7998A3E54C",
     token: tokens.ZZZ,
     reward: tokens.NAPS,
     poolIcon: "😴",

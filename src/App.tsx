@@ -21,7 +21,7 @@ function App() {
   const [currentTheme, setCurrentThemeLocal] = useState(theme || "other");
   const [showWallet, setShowWallet] = useState(true);
 
-  function setCurrentTheme(theme) {
+  function setCurrentTheme(theme : any) {
     setCurrentThemeLocal(theme);
     localStorage.setItem("zzz-finance-theme", theme);
   }

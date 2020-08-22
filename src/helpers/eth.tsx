@@ -11,7 +11,12 @@ export async function getERC20balance(
 ) {
   const contract = new ethers.Contract(token.address, token.abi, provider);
   const amount = await contract.balanceOf(address);
-  return parseFloat(formatEther(amount)).toFixed(4);
+  // if(token.address == "0xc75F15AdA581219c95485c578E124df3985e4CE0") {
+  //   console.log(parseFloat(formatEther(amount)).toFixed(20))
+  //   console.log(parseFloat(formatEther(amount)))
+  //   console.log('---')
+  // }
+  return parseFloat(formatEther(amount)).toFixed(18);
 }
 
 export async function getCurrentTotalStake(pool: Pool, provider) {
@@ -47,8 +52,11 @@ export async function checkAllowance(address: string, pool: Pool, provider) {
     pool.token.abi,
     provider
   );
-
+  
   const allowance = await contract.allowance(address, pool.address);
+  console.log("checkign allowance for : ", address, pool.address)
+  console.log("allowance is",allowance)
+  console.log("-----")
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
 }
