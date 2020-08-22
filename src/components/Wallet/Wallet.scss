@@ -27,7 +27,9 @@
 }
 
 .deactivate-button {
-  max-width: 9.5em;
+  max-width: 8em;
+  height: 50px;
+  background-color: rgb(177, 70, 70) !important;
 }
 
 .theme-toggler-menu {
@@ -47,6 +49,13 @@
 .wallet-balance-icon-unidentified {
   font-size: 24px;
   margin-right: 4px;
+}
+
+.uniswap-button-menu {
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width: 700px) {

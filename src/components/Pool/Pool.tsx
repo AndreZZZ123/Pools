@@ -23,14 +23,34 @@ import { Pool as IPool } from "../../types";
 import BasicInput from "../BasicInput/BasicInput";
 import Button from "../Button/Button";
 import PricesStore from "../../stores/prices";
-import "./Pool.scss";
 import Spinner from "../Spinner/Spinner";
+import Modal from "react-modal";
+import "./Pool.scss";
+import BoostingInfo from "../BoostingInfo/BoostingInfo";
+
+Modal.setAppElement("#root");
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "rgba(0,0,0,0.8)"
+  }
+};
 
 type Props = {
   pool: IPool;
 };
 
-const boostLevels = [1, 2, 3];
+const boostLevels: any[][] = [
+  [1, "10%"],
+  [2, "20%"],
+  [3, "30%"]
+];
 
 function getWPYusd(poolName, staked, tokenPrice, rewardPerToken) {
   if (poolName === "ZZZ") {
@@ -58,8 +78,8 @@ function Pool({ pool }: Props) {
   const signer = library.getSigner();
 
   const tokenPrice = PricesStore.prices.get(pool.reward.name);
+  const napsAmount = PricesStore.balances.get("NAPS");
   const [yields, setYields] = useState<any>(null);
-
   let earnedUSD: null | number = null;
   let weeklyROIUSD: null | number = null;
   if (earned > 0) {
@@ -96,12 +116,34 @@ function Pool({ pool }: Props) {
     }
   }, [active, library, account, pool]);
 
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <div className="pool">
       <div className="pool-title">
         <div role="img" className="pool-icon">
           {pool.poolIcon}
         </div>
+        {pool.boostAvailable && (
+          <div className="boosting-info" onClick={() => openModal()}>
+            boosting info
+          </div>
+        )}
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Boosting info"
+          style={customStyles}
+        >
+          <BoostingInfo />
+        </Modal>
         <h2>{pool.uiName}</h2>
       </div>
       <section className="pool-content">
@@ -173,18 +215,27 @@ function Pool({ pool }: Props) {
             Approve boost
           </Button>
         )}
-        {pool.boostAvailable && hasBoostAllowance && (
+        {pool.boostAvailable && hasBoostAllowance && boostCosts.length && (
           <div className="boost-buttons">
-            Boost multiplier <b>{((boostMultiplier - 1) * 100).toFixed(0)}%</b>
-            {boostLevels.map(level => {
+            {boostMultiplier > 1 && (
+              <span>
+                Boost multiplier{" "}
+                <b>{((boostMultiplier - 1) * 100).toFixed(0)}%</b>
+              </span>
+            )}
+            {boostLevels.map(([level, percentage]) => {
               const isActive = level === boostLevel;
+              const boostCostForLevel = boostCosts[level - 1];
+              const tooPoor =
+                !!boostCostForLevel &&
+                parseFloat(napsAmount) < parseFloat(boostCostForLevel);
               if (level < boostLevel) return null;
               return (
                 <Button
-                  className={`boost-button ${isActive ? "active" : ""} ${
-                    boostLevel > level ? " disabled" : ""
-                  }`}
-                  onClick={() => boost(level, pool, signer)}
+                  className={`boost-button boost-button-level-${level} ${
+                    isActive ? "active" : ""
+                  } ${tooPoor ? " disabled" : ""}`}
+                  onClick={() => !tooPoor && boost(level, pool, signer)}
                   key={`boost-level${level}`}
                 >
                   Level {level} <br />
@@ -194,7 +245,7 @@ function Pool({ pool }: Props) {
                     height={25}
                     condition={boostCosts.length}
                   >
-                    {boostCosts[level - 1]} NAPS
+                    {boostCostForLevel} NAPS <br />+{percentage} MULTI
                   </Spinner>
                 </Button>
               );

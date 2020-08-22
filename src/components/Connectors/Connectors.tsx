@@ -72,12 +72,20 @@ function Connectors() {
                   </span>
                 )} */}
                 <div>{name}</div>
-                {name !== "Mobile wallet" && (
+                {name !== "Mobile wallet" ? (
                   <img
                     src={MetaMask}
                     alt="MetaMask"
                     className="icon metamask-icon"
                   />
+                ) : (
+                  <span
+                    role="img"
+                    aria-label="mobile"
+                    style={{ fontSize: "24px" }}
+                  >
+                    📱
+                  </span>
                 )}
               </div>
             </Button>

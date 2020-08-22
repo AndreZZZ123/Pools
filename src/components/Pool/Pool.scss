@@ -1,6 +1,7 @@
 @import "../../main.scss";
 
 .pool {
+  position: relative;
   padding: $small-spacing;
   background-color: rgba(255, 255, 255, 0.1);
   margin: $small-spacing;
@@ -15,6 +16,30 @@
   -webkit-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
   box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+}
+
+.boosting-info {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  font-weight: bold;
+  font-size: $small-font-size;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border-radius: 50px;
+  -webkit-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 14px 17px 28px -12px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.boosting-info:active {
+  transform: translateY(2px);
+}
+
+.ReactModal__Content {
+  width: 50%;
+  height: 50%;
 }
 
 h2 {
@@ -108,6 +133,10 @@ h2 {
   margin-bottom: $default-spacing;
 }
 
+.boost-button {
+  font-size: $default-font-size;
+}
+
 .boost-button.active {
   background-color: green;
 }
@@ -121,6 +150,10 @@ h2 {
     padding: 0;
     padding-bottom: $default-spacing;
     margin-top: $default-spacing;
+  }
+  .ReactModal__Content {
+    width: 75%;
+    height: 75%;
   }
 }
 @media screen and (max-width: 370px) {

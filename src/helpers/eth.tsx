@@ -26,8 +26,9 @@ export async function getCurrentTotalStake(pool: Pool, provider) {
 }
 
 export async function stake(pool, signer, amount) {
+  const fixedAmount = (amount - 0.000001).toString();
   const contract = new ethers.Contract(pool.address, pool.abi, signer);
-  await contract.stake(parseEther(amount));
+  await contract.stake(parseEther(fixedAmount));
 }
 
 export async function claim(pool, signer) {
@@ -52,11 +53,11 @@ export async function checkAllowance(address: string, pool: Pool, provider) {
     pool.token.abi,
     provider
   );
-  
+
   const allowance = await contract.allowance(address, pool.address);
-  console.log("checkign allowance for : ", address, pool.address)
-  console.log("allowance is",allowance)
-  console.log("-----")
+  console.log("checkign allowance for : ", address, pool.address);
+  console.log("allowance is", allowance);
+  console.log("-----");
   const dec = formatEther(allowance);
   return parseFloat(dec) > 0;
 }
@@ -69,7 +70,6 @@ export async function getBoostCosts(pool, provider) {
   results.push(level1Cost);
   results.push(level2Cost);
   results.push(level3Cost);
-  console.log(results);
   return results;
 }
 export async function boost(level, pool, signer) {

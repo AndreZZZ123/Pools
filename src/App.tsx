@@ -9,7 +9,6 @@ import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 import MenuIcon from "./components/SVG/MenuIcon";
 import Button from "./components/Button/Button";
-import uniswapicon from "./assets/uniswap_corn1.svg";
 import Prices from "./stores/prices";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -21,7 +20,7 @@ function App() {
   const [currentTheme, setCurrentThemeLocal] = useState(theme || "other");
   const [showWallet, setShowWallet] = useState(true);
 
-  function setCurrentTheme(theme : any) {
+  function setCurrentTheme(theme: any) {
     setCurrentThemeLocal(theme);
     localStorage.setItem("zzz-finance-theme", theme);
   }
@@ -71,10 +70,34 @@ function App() {
                   href="https://beta.uniswap.info/pair/0x7d829fcc84f9dca5a3e6d9fb73545bacf350146a"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ display: "block", minWidth: "12em" }}
+                  style={{ display: "block" }}
                 >
-                  <Button className="uniswap-button" icon={uniswapicon}>
-                    UNISWAP
+                  <Button className="uniswap-button-menu">
+                    <span
+                      role="img"
+                      aria-label="sleepy"
+                      style={{ fontSize: "24px", marginRight: "5px" }}
+                    >
+                      💤
+                    </span>
+                    GET ZZZ
+                  </Button>
+                </a>
+                <a
+                  href="https://beta.uniswap.info/pair/0x0de0322d3ac0d5002e2bc9c3a188728728d90799"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Button className="uniswap-button-menu">
+                    {" "}
+                    <span
+                      role="img"
+                      aria-label="sleepy"
+                      style={{ fontSize: "24px", marginRight: "5px" }}
+                    >
+                      😴
+                    </span>
+                    GET NAP
                   </Button>
                 </a>
                 <Connectors />
