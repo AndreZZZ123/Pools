@@ -72,7 +72,7 @@ export const pools: Pool[] = [
     reward: tokens.NAPS,
     poolIcon: "💤",
     abi: require("./abi/multiplier_pool_abi.json"),
-    info: "Stake ZZZ/NAP-UNI for NAPS",
+    info: "Stake ZZZ/NAP-UNI for NAPS.",
     buyAssetFrom:
       "https://app.uniswap.org/#/add/0x66b3037aa8dd64c3ef1aee13a4d1f2509f672d1c/0xc75f15ada581219c95485c578e124df3985e4ce0",
     boostAvailable: true
@@ -85,7 +85,7 @@ export const pools: Pool[] = [
     reward: tokens.NAPS,
     poolIcon: "😴",
     abi: require("./abi/multiplier_pool_abi.json"),
-    info: "Stake ZZZ for NAPS",
+    info: "Stake ZZZ for NAPS.",
     buyAssetFrom:
       "https://beta.uniswap.info/pair/0x0de0322d3ac0d5002e2bc9c3a188728728d90799",
     boostAvailable: true
