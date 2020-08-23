@@ -49,7 +49,7 @@ type Props = {
 const boostLevels: any[][] = [
   [1, "10%"],
   [2, "20%"],
-  [3, "30%"]
+  [3, "40%"]
 ];
 
 function getWPYusd(poolName, staked, tokenPrice, rewardPerToken) {
