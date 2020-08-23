@@ -13,11 +13,10 @@ function Pools() {
     setTab(currentTab);
 
     const tab = currentTab.toString();
+    var tmpTab  = tab.match("'(.*)'");
+    var newTab = tmpTab[1];
 
-    var tmpStr  = tab.match("'(.*)'");
-    var newStr = tmpStr[1];
-
-    localStorage.setItem("zzz-pools-selected", newStr);
+    localStorage.setItem("zzz-pools-selected", newTab);
   }
 
   return (
