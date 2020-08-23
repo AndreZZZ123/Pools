@@ -6,26 +6,54 @@ import { pools, experiments } from "../../misc/contracts";
 import "./Pools.scss";
 
 function Pools() {
-  const [currentTab, setTab] = useState('regular');
+  const poolsLocal = localStorage.getItem("zzz-pools-selected");
+  const [currentTab, setTab] = useState(poolsLocal || 'regular');
+
+  function setCurrentPoolsSelected(currentTab: any) {
+    setTab(currentTab);
+
+    const tab = currentTab.toString();
+
+    var tmpStr  = tab.match("'(.*)'");
+    var newStr = tmpStr[1];
+
+    localStorage.setItem("zzz-pools-selected", newStr);
+  }
 
   return (
     <div className={`pools -${currentTab}`}>
       <div className="pool-selection">
-        <img
-          onClick={() => { setTab(() => 'regular') }}
-          src={swimmingPoolImg}
-          width="280"
-          className="swimming-pool-icon"
-          alt="swimming-pool"
-        />
-        <img
-          onClick={() => { setTab(() => 'experiments') }}
-          src={lavaPoolImg}
-          width="280"
-          className="lava-pool-icon"
-          alt="lava-pool"
-        />
-      </div>
+        <div className="pools-title-container">
+
+          <div className="pools-selector-container">
+            <h1>Open Pools</h1>
+            {/* implement apy class to pull best apy */}
+            <p>Best APY +XX.XX%</p>
+          
+            <img
+              onClick={() => { setCurrentPoolsSelected(() => 'regular') }}
+              src={swimmingPoolImg}
+              width="280"
+              height="165"
+              className="swimming-pool-icon"
+              alt="swimming-pool"
+            />
+            </div>
+            <div className="pools-selector-container">
+              <h1>New Pools</h1>
+              {/* implement apy class to pull best apy */}
+              <p>Best APY <span className="green">+XX.XX%</span></p>
+              <img
+                onClick={() => { setCurrentPoolsSelected(() => 'experiments') }}
+                src={lavaPoolImg}
+                
+                height="165"
+                className="lava-pool-icon"
+                alt="lava-pool"
+              />
+            </div>
+          </div>
+        </div>
       <div className="pools-container">
         {currentTab == "regular" && pools.map(pool => <Pool pool={pool} key={pool.name} />)}
         {currentTab == "experiments" && experiments.map(pool => <Pool pool={pool} key={pool.name} />)}

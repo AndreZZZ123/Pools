@@ -32,6 +32,29 @@
   margin: $default-spacing;
 }
 
+.pools-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: $default-spacing;
+  align-items: center;
+  width: 100%;
+}
+
+.pools-selector-container h1, p{
+  text-align: center;
+}
+
+.pools-selector-container p{
+  margin-top: -8px;
+  
+}
+.pools-selector-container span{
+  color: green;
+  
+}
+
+
 .current-price {
   font-weight: bold;
 }
