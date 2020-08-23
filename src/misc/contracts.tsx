@@ -92,6 +92,33 @@ export const pools: Pool[] = [
   }
 ];
 
+export const experiments: Pool[] = [
+  {
+    name: "EX1",
+    uiName: "Ex-1",
+    address: "0x0000000000000000000000000000000000000000",
+    token: tokens.BPT,
+    reward: tokens.ZZZ,
+    poolIcon: "🔥",
+    abi: require("./abi/zzz_bpt_pool_abi.json"),
+    info: "Stake your XAMP for EX1 token reward.",
+    buyAssetFrom:
+      "https://pools.balancer.exchange/#/pool/0x4f9dde745bf54f207dfc1fe34896d6752c63ad07/"
+  },
+  {
+    name: "EX2",
+    uiName: "Ex-2",
+    address: "0x0000000000000000000000000000000000000000",
+    token: tokens.BPT,
+    reward: tokens.ZZZ,
+    poolIcon: "🌋",
+    abi: require("./abi/zzz_bpt_pool_abi.json"),
+    info: "Stake your TOB for EX2 token reward.",
+    buyAssetFrom:
+      "https://pools.balancer.exchange/#/pool/0x4f9dde745bf54f207dfc1fe34896d6752c63ad07/"
+  },
+];
+
 export const otherPools = [
   {
     name: "Balancer Pool",

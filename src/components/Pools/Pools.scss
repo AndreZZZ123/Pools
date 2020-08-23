@@ -5,6 +5,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &.-regular {
+    .lava-pool-icon {
+      opacity: 0.25;
+    }
+  }
+
+  &.-experiments {
+    .swimming-pool-icon {
+      opacity: 0.25;
+    }
+  }
+}
+
+.pool-selection {
+  img {
+    cursor: pointer;
+  }
 }
 
 .pools-container {
