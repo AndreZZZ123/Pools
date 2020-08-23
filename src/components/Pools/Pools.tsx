@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Pool from "../Pool/Pool";
 import swimmingPoolImg from "../../assets/swimming_pool.svg";
-import lavaPoolImg from "../../assets/lava_pool.svg";
+import lavaPoolImg from "../../assets/lava_pool.png";
 import { pools, experiments } from "../../misc/contracts";
 import "./Pools.scss";
 
